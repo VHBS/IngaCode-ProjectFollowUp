@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+  db_mysql:
+    image: mysql:8.0.21
+    container_name: db_mysql
+    platform: linux/x86_64
+    restart: 'always'
+    volumes:
+      - './database:/var/lib/mysql'
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 15s
+      retries: 5
+    cap_add:
+      - SYS_NICE
