@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend - Project monitoring with task control and time recording.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VHBS/IngaCode-ProjectFollowUp.git"
+  },
+  "author": "Victor Hugo Baum Schlichting",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VHBS/IngaCode-ProjectFollowUp/issues"
+  },
+  "homepage": "https://github.com/VHBS/IngaCode-ProjectFollowUp#readme"
+}
