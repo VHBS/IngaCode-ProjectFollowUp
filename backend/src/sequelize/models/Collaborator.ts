@@ -55,7 +55,7 @@ Collaborator.init(
     userId: {
       allowNull: false,
       type: DataTypes.UUID,
-      // unique: true,
+      unique: true,
       field: 'user_id',
     },
     createdAt: {
