@@ -1,6 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
 import db from '.';
 import ITask from './interfaces/ITask';
+import Project from './Project';
 
 class Task extends Model implements ITask {
   private _id: string;
@@ -64,6 +65,7 @@ Task.init(
     projectId: {
       allowNull: false,
       type: DataTypes.UUID,
+      field: 'project_id',
     },
     createdAt: {
       allowNull: false,
@@ -87,5 +89,7 @@ Task.init(
     tableName: 'Tasks',
   },
 );
+
+Task.belongsTo(Project, { foreignKey: 'projectId' });
 
 export default Task;
