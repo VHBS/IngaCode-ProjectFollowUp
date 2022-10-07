@@ -1,43 +1,22 @@
 import { DataTypes, Model } from 'sequelize';
+import bcrypt from 'bcryptjs';
 import db from '.';
 import IUser from './interfaces/IUser';
 
 class User extends Model implements IUser {
-  private _id: string;
+  declare id: string;
 
-  private _userName: string;
+  declare userName: string;
 
-  private _password: string;
+  declare password: string;
 
-  private _createdAt: Date;
+  declare createdAt: Date;
 
-  private _updatedAt: Date;
+  declare updatedAt: Date;
 
-  private _deletedAt?: Date;
+  declare deletedAt?: Date;
 
-  get id() {
-    return this._id;
-  }
-
-  get userName() {
-    return this._userName;
-  }
-
-  get password() {
-    return this._password;
-  }
-
-  get createdAt() {
-    return this._createdAt;
-  }
-
-  get updatedAt() {
-    return this._updatedAt;
-  }
-
-  get deletedAt() {
-    return this._deletedAt;
-  }
+  declare validPassword: (password: string) => boolean;
 }
 
 User.init(
@@ -77,7 +56,18 @@ User.init(
     sequelize: db,
     modelName: 'User',
     tableName: 'Users',
+    hooks: {
+      beforeCreate: (user) => {
+        const salt = bcrypt.genSaltSync();
+        const cryptPassword = bcrypt.hashSync(user.password, salt);
+        user.password = cryptPassword;
+      },
+    },
   },
 );
+
+User.prototype.validPassword = function (password: string): boolean {
+  return bcrypt.compareSync(password, this.password);
+};
 
 export default User;
