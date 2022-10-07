@@ -28,6 +28,8 @@
   "plugins": ["@typescript-eslint", "prettier"],
   "ignorePatterns": ["build.*js", "build/**/*.js"],
   "rules": {
+    "no-param-reassign":"off",
+    "func-names": "off",
     "no-console": "off",
     "prettier/prettier": "error",
     "@typescript-eslint/indent": ["error", 2],
