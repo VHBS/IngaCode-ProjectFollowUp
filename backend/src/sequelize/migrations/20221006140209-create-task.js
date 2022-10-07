@@ -15,6 +15,7 @@ module.exports = {
         type: Sequelize.TEXT,
       },
       projectId: {
+        allowNull: false,
         type: Sequelize.UUID,
         references: {
           model: 'Projects',
