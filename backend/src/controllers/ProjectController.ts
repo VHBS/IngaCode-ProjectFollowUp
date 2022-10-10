@@ -55,4 +55,23 @@ export default class ProjectController implements IController<ProjectType> {
       return next(error);
     }
   };
+
+  public delete = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response<ProjectType | ResponseError> | void> => {
+    try {
+      const { id } = req.params;
+
+      const resultProjectService = await this._service.delete(id);
+
+      if (resultProjectService.status !== 200) {
+        return res.status(resultProjectService.status).json(resultProjectService.json);
+      }
+      return res.status(resultProjectService.status).send();
+    } catch (error) {
+      return next(error);
+    }
+  };
 }
