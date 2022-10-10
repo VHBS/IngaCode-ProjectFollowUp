@@ -9,4 +9,6 @@ const projectController = new ProjectController(projectService);
 
 projectRoutes.get('/', projectController.findAll);
 
+projectRoutes.post('/', projectController.create);
+
 export default projectRoutes;
