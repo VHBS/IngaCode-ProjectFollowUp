@@ -17,6 +17,15 @@ class User extends Model implements IUser {
   declare deletedAt?: Date;
 
   declare validPassword: (password: string) => boolean;
+
+  get getData() {
+    return {
+      id: this.id,
+      userName: this.userName,
+      createdAt: this.createdAt,
+      updatedAt: this.createdAt,
+    };
+  }
 }
 
 User.init(
