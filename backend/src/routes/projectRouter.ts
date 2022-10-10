@@ -11,4 +11,6 @@ projectRoutes.get('/', projectController.findAll);
 
 projectRoutes.post('/', projectController.create);
 
+projectRoutes.patch('/:id', projectController.update);
+
 export default projectRoutes;
