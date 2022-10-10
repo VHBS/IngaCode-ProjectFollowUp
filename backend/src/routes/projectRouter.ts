@@ -13,4 +13,6 @@ projectRoutes.post('/', projectController.create);
 
 projectRoutes.patch('/:id', projectController.update);
 
+projectRoutes.delete('/:id', projectController.delete);
+
 export default projectRoutes;
