@@ -1,13 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
 import { ProjectType } from '../@types/project';
+import { ProjectServiceType } from '../@types/projectService';
 import { ResponseError } from '../@types/responseError';
-import { IService } from '../services/interfaces/IService';
+import { IProjectService } from '../services/interfaces/IProjectService';
 import { IController } from './interfaces/IController';
 
 export default class ProjectController implements IController<ProjectType> {
-  private _service: IService<ProjectType>;
+  private _service: IProjectService<ProjectServiceType>;
 
-  constructor(service: IService<ProjectType>) {
+  constructor(service: IProjectService<ProjectServiceType>) {
     this._service = service;
   }
 
@@ -17,8 +18,8 @@ export default class ProjectController implements IController<ProjectType> {
     next: NextFunction,
   ): Promise<Response<ProjectType[]> | void> => {
     try {
-      const allProjects = await this._service.findAll();
-      return res.status(200).json(allProjects);
+      const resultProjectService = await this._service.findAll();
+      return res.status(resultProjectService.status).json(resultProjectService.json);
     } catch (error) {
       return next(error);
     }
@@ -31,9 +32,25 @@ export default class ProjectController implements IController<ProjectType> {
   ): Promise<Response<ProjectType | ResponseError> | void> => {
     try {
       const { name } = req.body;
-      const newProject = await this._service.create({ name });
+      const resultProjectService = await this._service.create({ name });
 
-      return res.status(200).json(newProject);
+      return res.status(resultProjectService.status).json(resultProjectService.json);
+    } catch (error) {
+      return next(error);
+    }
+  };
+
+  public update = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response<ProjectType | ResponseError> | void> => {
+    try {
+      const { id } = req.params;
+      const { name } = req.body;
+
+      const resultProjectService = await this._service.update(id, { name });
+      return res.status(resultProjectService.status).json(resultProjectService.json);
     } catch (error) {
       return next(error);
     }
