@@ -26,6 +26,7 @@
   "homepage": "https://github.com/VHBS/IngaCode-ProjectFollowUp#readme",
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.9",
     "@types/uuid": "^8.3.4",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
