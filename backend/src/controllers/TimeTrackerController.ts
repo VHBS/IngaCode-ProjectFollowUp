@@ -32,9 +32,9 @@ export default class TimeTrackerController implements IController<TimeTrackerTyp
   ): Promise<Response<TimeTrackerType | ResponseError> | void> => {
     try {
       const { timeZoneId, taskId, collaboratorId } = req.body;
-      const resultProjectService = await this._service.create({ timeZoneId, taskId, collaboratorId });
+      const resultTimeTrackerService = await this._service.create({ timeZoneId, taskId, collaboratorId });
 
-      return res.status(resultProjectService.status).json(resultProjectService.json);
+      return res.status(resultTimeTrackerService.status).json(resultTimeTrackerService.json);
     } catch (error) {
       return next(error);
     }
