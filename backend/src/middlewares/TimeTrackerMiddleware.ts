@@ -31,4 +31,16 @@ export default class TimeTrackerMiddleware implements IMiddleware {
   public create = async (req: Request, res: Response, next: NextFunction): Promise<Response<ResponseError> | void> => {
     return this.validateTimeTrackerFields(req, res, next);
   };
+
+  public update = async (req: Request, res: Response, next: NextFunction): Promise<Response<ResponseError> | void> => {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({
+        message: 'The "id" parameter is required!',
+      });
+    }
+
+    return this.validateTimeTrackerFields(req, res, next);
+  };
 }
