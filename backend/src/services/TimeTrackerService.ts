@@ -60,4 +60,26 @@ export default class TimeTrackerService implements ITimeTrackerService<TimeTrack
 
     return { status: 204, json: findTimeTrackerById };
   };
+
+  public finish = async (id: string): Promise<TimeTrackerServiceType> => {
+    const findTimeTrackerById = await TimeTracker.findByPk(id);
+
+    if (!findTimeTrackerById) {
+      return { status: 404, json: { message: this.timeTrackerNotFound } };
+    }
+
+    if (findTimeTrackerById.deletedAt) {
+      return { status: 400, json: { message: this.timeTrackerAlreadyDeleted } };
+    }
+
+    if (findTimeTrackerById.endDate) {
+      return { status: 400, json: { message: 'Time tracker has already been finished!' } };
+    }
+
+    await findTimeTrackerById.update({
+      endDate: new Date(),
+    });
+
+    return { status: 200, json: findTimeTrackerById };
+  };
 }
