@@ -39,4 +39,20 @@ export default class TimeTrackerController implements IController<TimeTrackerTyp
       return next(error);
     }
   };
+
+  public update = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response<TimeTrackerType | ResponseError> | void> => {
+    try {
+      const { id } = req.params;
+      const { timeZoneId, taskId, collaboratorId } = req.body;
+
+      const resultTimeTrackerService = await this._service.update(id, { timeZoneId, taskId, collaboratorId });
+      return res.status(resultTimeTrackerService.status).json(resultTimeTrackerService.json);
+    } catch (error) {
+      return next(error);
+    }
+  };
 }
