@@ -35,4 +35,20 @@ export default class TaskController {
       return next(error);
     }
   };
+
+  public update = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response<TaskType> | ResponseError | void> => {
+    try {
+      const { id } = req.params;
+      const { name, description, projectId } = req.body;
+
+      const resultTaskService = await this._service.update(id, { name, description, projectId });
+      return res.status(resultTaskService.status).json(resultTaskService.json);
+    } catch (error) {
+      return next(error);
+    }
+  };
 }
