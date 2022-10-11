@@ -12,6 +12,7 @@ const timeTrackerController = new TimeTrackerController(timeTrackerService);
 timeTrackerRoutes.get('/', timeTrackerController.findAll);
 timeTrackerRoutes.post('/', timeTrackerMiddleware.create, timeTrackerController.create);
 timeTrackerRoutes.patch('/:id', timeTrackerMiddleware.update, timeTrackerController.update);
+timeTrackerRoutes.patch('/finish/:id', timeTrackerController.finish);
 timeTrackerRoutes.delete('/:id', timeTrackerMiddleware.delete, timeTrackerController.delete);
 
 export default timeTrackerRoutes;
