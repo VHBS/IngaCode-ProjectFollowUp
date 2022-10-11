@@ -3,10 +3,9 @@ import { ResponseError } from '../@types/responseError';
 import { TaskType } from '../@types/task';
 import { TaskServiceType } from '../@types/taskService';
 import { ITaskService } from '../services/interfaces/ITaskService';
-// import { IController } from './interfaces/IController';
+import { IController } from './interfaces/IController';
 
-// export default class TaskController implements IController<TaskType> {
-export default class TaskController {
+export default class TaskController implements IController<TaskType> {
   private _service: ITaskService<TaskServiceType>;
 
   constructor(service: ITaskService<TaskServiceType>) {
@@ -26,10 +25,11 @@ export default class TaskController {
     req: Request,
     res: Response,
     next: NextFunction,
-  ): Promise<Response<TaskType> | ResponseError | void> => {
+  ): Promise<Response<TaskType | ResponseError> | void> => {
     try {
       const { name, description, projectId } = req.body;
       const resultTaskService = await this._service.create({ name, description, projectId });
+
       return res.status(resultTaskService.status).json(resultTaskService.json);
     } catch (error) {
       return next(error);
@@ -40,13 +40,32 @@ export default class TaskController {
     req: Request,
     res: Response,
     next: NextFunction,
-  ): Promise<Response<TaskType> | ResponseError | void> => {
+  ): Promise<Response<TaskType | ResponseError> | void> => {
     try {
       const { id } = req.params;
       const { name, description, projectId } = req.body;
 
       const resultTaskService = await this._service.update(id, { name, description, projectId });
       return res.status(resultTaskService.status).json(resultTaskService.json);
+    } catch (error) {
+      return next(error);
+    }
+  };
+
+  public delete = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response<TaskType | ResponseError> | void> => {
+    try {
+      const { id } = req.params;
+
+      const resultTaskService = await this._service.delete(id);
+
+      if (resultTaskService.status !== 200) {
+        return res.status(resultTaskService.status).json(resultTaskService.json);
+      }
+      return res.status(resultTaskService.status).send();
     } catch (error) {
       return next(error);
     }
