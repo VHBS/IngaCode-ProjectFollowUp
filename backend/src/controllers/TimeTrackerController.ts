@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import { ResponseError } from '../@types/responseError';
 import { TimeTrackerType } from '../@types/timeTracker';
 import { TimeTrackerServiceType } from '../@types/timeTrackerService';
 import { ITimeTrackerService } from '../services/interfaces/ITimeTrackerService';
@@ -19,6 +20,21 @@ export default class TimeTrackerController implements IController<TimeTrackerTyp
     try {
       const resultTimeTrackerService = await this._service.findAll();
       return res.status(resultTimeTrackerService.status).json(resultTimeTrackerService.json);
+    } catch (error) {
+      return next(error);
+    }
+  };
+
+  public create = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response<TimeTrackerType | ResponseError> | void> => {
+    try {
+      const { timeZoneId, taskId, collaboratorId } = req.body;
+      const resultProjectService = await this._service.create({ timeZoneId, taskId, collaboratorId });
+
+      return res.status(resultProjectService.status).json(resultProjectService.json);
     } catch (error) {
       return next(error);
     }
