@@ -6,14 +6,20 @@ import { IProjectService } from './interfaces/IProjectService';
 export default class ProjectService implements IProjectService<ProjectServiceType> {
   public projectNotFound = 'Project not found!';
 
+  public projectAlreadyDeleted = 'Project has already been deleted!';
+
   public findAll = async (): Promise<ProjectServiceType> => {
-    const allProjects = await Project.findAll();
+    const allProjects = await Project.findAll({
+      where: {
+        deletedAt: null,
+      },
+    });
     return { status: 200, json: allProjects };
   };
 
   public create = async (entity: InputProjectType): Promise<ProjectServiceType> => {
     const newProject = await Project.create(entity);
-    return { status: 200, json: newProject };
+    return { status: 201, json: newProject };
   };
 
   public update = async (id: string, entity: InputProjectType): Promise<ProjectServiceType> => {
@@ -22,6 +28,10 @@ export default class ProjectService implements IProjectService<ProjectServiceTyp
 
     if (!findProjectById) {
       return { status: 404, json: { message: this.projectNotFound } };
+    }
+
+    if (findProjectById.deletedAt) {
+      return { status: 400, json: { message: this.projectAlreadyDeleted } };
     }
 
     await findProjectById.update({
@@ -39,13 +49,13 @@ export default class ProjectService implements IProjectService<ProjectServiceTyp
     }
 
     if (findProjectById.deletedAt) {
-      return { status: 400, json: { message: 'Project has been deleted' } };
+      return { status: 400, json: { message: this.projectAlreadyDeleted } };
     }
 
     await findProjectById.update({
       deletedAt: new Date(),
     });
 
-    return { status: 200, json: findProjectById };
+    return { status: 204, json: findProjectById };
   };
 }
