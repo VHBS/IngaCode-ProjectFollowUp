@@ -1,3 +1,4 @@
+import { InputTimeTrackerType } from '../@types/timeTracker';
 import { TimeTrackerServiceType } from '../@types/timeTrackerService';
 import TimeTracker from '../sequelize/models/TimeTracker';
 import { ITimeTrackerService } from './interfaces/ITimeTrackerService';
@@ -14,5 +15,10 @@ export default class TimeTrackerService implements ITimeTrackerService<TimeTrack
       },
     });
     return { status: 200, json: allTimeTrackers };
+  };
+
+  public create = async (entity: InputTimeTrackerType): Promise<TimeTrackerServiceType> => {
+    const newTimeTracker = await TimeTracker.create(entity);
+    return { status: 201, json: newTimeTracker };
   };
 }
