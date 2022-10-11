@@ -12,5 +12,6 @@ const taskController = new TaskController(taskService);
 
 taskRoutes.get('/', taskController.findAll);
 taskRoutes.post('/', taskMiddleware.create, taskController.create);
+taskRoutes.patch('/:id', taskMiddleware.update, taskController.update);
 
 export default taskRoutes;
