@@ -1,7 +1,7 @@
 import { UserType } from '../@types/user';
 import User from '../sequelize/models/User';
 import { IUserService } from './interfaces/IUserService';
-import Jwt from '../utils/jwt/jts';
+import Jwt from '../utils/jwt/jwt';
 import { UserLoginServiceType } from '../@types/userService';
 
 export default class UserService implements IUserService {
