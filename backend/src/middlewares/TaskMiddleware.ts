@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { ResponseError } from '../@types/responseError';
-// import { IMiddleware } from './interfaces/IMiddleware';
+import { IMiddleware } from './interfaces/IMiddleware';
 
-// export default class TaskMiddleware implements IMiddleware {
-export default class TaskMiddleware {
+export default class TaskMiddleware implements IMiddleware {
   public validateTaskFields = async (
     req: Request,
     res: Response,
@@ -43,5 +42,16 @@ export default class TaskMiddleware {
     }
 
     return this.validateTaskFields(req, res, next);
+  };
+
+  public delete = async (req: Request, res: Response, next: NextFunction): Promise<Response<ResponseError> | void> => {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({
+        message: 'The "id" parameter is required!',
+      });
+    }
+    return next();
   };
 }
