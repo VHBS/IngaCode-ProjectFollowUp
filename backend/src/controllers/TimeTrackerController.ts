@@ -55,4 +55,23 @@ export default class TimeTrackerController implements IController<TimeTrackerTyp
       return next(error);
     }
   };
+
+  public delete = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response<TimeTrackerType | ResponseError> | void> => {
+    try {
+      const { id } = req.params;
+
+      const resultTimeTrackerService = await this._service.delete(id);
+
+      if (resultTimeTrackerService.status !== 200) {
+        return res.status(resultTimeTrackerService.status).json(resultTimeTrackerService.json);
+      }
+      return res.status(resultTimeTrackerService.status).send();
+    } catch (error) {
+      return next(error);
+    }
+  };
 }
