@@ -16,5 +16,6 @@ taskRoutes.get('/', userMiddleware.validateJwt, taskController.findAll);
 taskRoutes.post('/', userMiddleware.validateJwt, taskMiddleware.create, taskController.create);
 taskRoutes.patch('/:id', userMiddleware.validateJwt, taskMiddleware.update, taskController.update);
 taskRoutes.delete('/:id', userMiddleware.validateJwt, taskMiddleware.delete, taskController.delete);
+taskRoutes.get('/:id', userMiddleware.validateJwt, taskController.findOne);
 
 export default taskRoutes;
