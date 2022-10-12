@@ -74,4 +74,20 @@ export default class ProjectController implements IController<ProjectType> {
       return next(error);
     }
   };
+
+  public findOne = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response<ProjectType | ResponseError> | void> => {
+    try {
+      const { id } = req.params;
+
+      const resultProjectService = await this._service.findOne(id);
+
+      return res.status(resultProjectService.status).json(resultProjectService.json);
+    } catch (error) {
+      return next(error);
+    }
+  };
 }

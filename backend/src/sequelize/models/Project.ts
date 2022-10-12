@@ -1,36 +1,29 @@
 import { DataTypes, Model } from 'sequelize';
 import db from '.';
 import IProject from './interfaces/IProject';
+import ITask from './interfaces/ITask';
+import Task from './Task';
 
 class Project extends Model implements IProject {
-  private _id: string;
+  declare id: string;
 
-  private _name: string;
+  declare name: string;
 
-  private _createdAt: Date;
+  declare tasks: ITask[];
 
-  private _updatedAt: Date;
+  declare createdAt: Date;
 
-  private _deletedAt?: Date;
+  declare updatedAt: Date;
 
-  get id() {
-    return this._id;
-  }
+  declare deletedAt?: Date;
 
-  get name() {
-    return this._name;
-  }
-
-  get createdAt() {
-    return this._createdAt;
-  }
-
-  get updatedAt() {
-    return this._updatedAt;
-  }
-
-  get deletedAt() {
-    return this._deletedAt;
+  get getData() {
+    return {
+      id: this.id,
+      name: this.name,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+    };
   }
 }
 
@@ -67,5 +60,15 @@ Project.init(
     tableName: 'Projects',
   },
 );
+
+Project.hasMany(Task, {
+  foreignKey: 'projectId',
+  as: 'tasks',
+});
+
+Task.belongsTo(Project, {
+  foreignKey: 'projectId',
+  as: 'project',
+});
 
 export default Project;

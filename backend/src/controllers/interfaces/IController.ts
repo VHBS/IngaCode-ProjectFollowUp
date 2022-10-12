@@ -6,5 +6,5 @@ export interface IController<T> {
   create: (req: Request, res: Response, next: NextFunction) => Promise<Response<T | ResponseError> | void>;
   update: (req: Request, res: Response, next: NextFunction) => Promise<Response<T | ResponseError> | void>;
   delete: (req: Request, res: Response, next: NextFunction) => Promise<Response<T | ResponseError> | void>;
-  // findOne: (req: Request, res: Response, next: NextFunction) => Promise<Response<T>>;
+  findOne: (req: Request, res: Response, next: NextFunction) => Promise<Response<T | ResponseError> | void>;
 }

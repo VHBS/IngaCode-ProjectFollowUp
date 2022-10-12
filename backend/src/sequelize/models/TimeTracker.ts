@@ -5,58 +5,35 @@ import ITimeTracker from './interfaces/ITimeTracker';
 import Task from './Task';
 
 class TimeTracker extends Model implements ITimeTracker {
-  private _id: string;
+  declare id: string;
 
-  private _startDate: Date;
+  declare startDate: Date;
 
-  private _endDate: Date;
+  declare endDate: Date;
 
-  private _timeZoneId: string;
+  declare timeZoneId: string;
 
-  private _taskId: string;
+  declare taskId: string;
 
-  private _collaboratorId: string;
+  declare collaboratorId: string;
 
-  private _createdAt: Date;
+  declare createdAt: Date;
 
-  private _updatedAt: Date;
+  declare updatedAt: Date;
 
-  private _deletedAt?: Date;
+  declare deletedAt?: Date;
 
-  get id() {
-    return this._id;
-  }
-
-  get startDate() {
-    return this._startDate;
-  }
-
-  get endDate() {
-    return this._endDate;
-  }
-
-  get timeZoneId() {
-    return this._timeZoneId;
-  }
-
-  get taskId() {
-    return this._taskId;
-  }
-
-  get collaboratorId() {
-    return this._collaboratorId;
-  }
-
-  get createdAt() {
-    return this._createdAt;
-  }
-
-  get updatedAt() {
-    return this._updatedAt;
-  }
-
-  get deletedAt() {
-    return this._deletedAt;
+  get getData() {
+    return {
+      id: this.id,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      timeZoneId: this.timeZoneId,
+      taskId: this.taskId,
+      collaboratorId: this.collaboratorId,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+    };
   }
 }
 

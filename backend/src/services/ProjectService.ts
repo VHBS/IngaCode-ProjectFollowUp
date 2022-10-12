@@ -1,6 +1,7 @@
 import { InputProjectType } from '../@types/project';
 import { ProjectServiceType } from '../@types/projectService';
 import Project from '../sequelize/models/Project';
+import Task from '../sequelize/models/Task';
 import { IProjectService } from './interfaces/IProjectService';
 
 export default class ProjectService implements IProjectService<ProjectServiceType> {
@@ -13,6 +14,15 @@ export default class ProjectService implements IProjectService<ProjectServiceTyp
       where: {
         deletedAt: null,
       },
+      include: [
+        {
+          model: Task,
+          as: 'tasks',
+          where: {
+            deletedAt: null,
+          },
+        },
+      ],
     });
     return { status: 200, json: allProjects };
   };
@@ -57,5 +67,29 @@ export default class ProjectService implements IProjectService<ProjectServiceTyp
     });
 
     return { status: 204, json: findProjectById };
+  };
+
+  public findOne = async (id: string): Promise<ProjectServiceType> => {
+    const findProjectById = await Project.findByPk(id, {
+      include: [
+        {
+          model: Task,
+          as: 'tasks',
+          where: {
+            deletedAt: null,
+          },
+        },
+      ],
+    });
+
+    if (!findProjectById) {
+      return { status: 404, json: { message: this.projectNotFound } };
+    }
+
+    if (findProjectById.deletedAt) {
+      return { status: 400, json: { message: this.projectAlreadyDeleted } };
+    }
+
+    return { status: 200, json: findProjectById };
   };
 }
