@@ -1,43 +1,28 @@
 import { DataTypes, Model } from 'sequelize';
 import db from '.';
 import ICollaborator from './interfaces/ICollaborator';
-import User from './User';
 
 class Collaborator extends Model implements ICollaborator {
-  private _id: string;
+  declare id: string;
 
-  private _name: string;
+  declare name: string;
 
-  private _userId: string;
+  declare userId: string;
 
-  private _createdAt: Date;
+  declare createdAt: Date;
 
-  private _updatedAt: Date;
+  declare updatedAt: Date;
 
-  private _deletedAt?: Date;
+  declare deletedAt?: Date;
 
-  get id() {
-    return this._id;
-  }
-
-  get name() {
-    return this._name;
-  }
-
-  get userId() {
-    return this._userId;
-  }
-
-  get createdAt() {
-    return this._createdAt;
-  }
-
-  get updatedAt() {
-    return this._updatedAt;
-  }
-
-  get deletedAt() {
-    return this._deletedAt;
+  get getData() {
+    return {
+      id: this.id,
+      name: this.name,
+      userId: this.userId,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+    };
   }
 }
 
@@ -80,7 +65,5 @@ Collaborator.init(
     tableName: 'Collaborators',
   },
 );
-
-Collaborator.belongsTo(User, { foreignKey: 'userId' });
 
 export default Collaborator;

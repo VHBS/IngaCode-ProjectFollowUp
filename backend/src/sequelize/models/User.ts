@@ -2,6 +2,7 @@ import { DataTypes, Model } from 'sequelize';
 import bcrypt from 'bcryptjs';
 import db from '.';
 import IUser from './interfaces/IUser';
+import Collaborator from './Collaborator';
 
 class User extends Model implements IUser {
   declare id: string;
@@ -78,5 +79,10 @@ User.init(
 User.prototype.validPassword = function (password: string): boolean {
   return bcrypt.compareSync(password, this.password);
 };
+
+User.hasOne(Collaborator, {
+  foreignKey: 'userId',
+  as: 'collaborator',
+});
 
 export default User;
