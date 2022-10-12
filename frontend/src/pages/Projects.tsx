@@ -6,7 +6,7 @@ import IProject from '../@types/project';
 import Navbar from '../components/Navbar';
 import NewProject from '../components/NewProject';
 import useAuth from '../hooks/useAuth';
-import { handleGetAllProjects } from '../utils/api';
+import { handleFetchGetAllProjects } from '../utils/api';
 
 export default function Projects(): JSX.Element {
   const [showModalNewProject, setShowModalNewProject] = useState<boolean>(false);
@@ -18,7 +18,7 @@ export default function Projects(): JSX.Element {
     if (!userData) {
       return navigate('/login');
     }
-    const response = await handleGetAllProjects(userData.token);
+    const response = await handleFetchGetAllProjects(userData.token);
 
     if ('message' in response) {
       return setUserData(null);

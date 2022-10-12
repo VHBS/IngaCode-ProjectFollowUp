@@ -6,7 +6,7 @@ import React, {
 import { AuthContextType } from '../@types/authContext';
 import { ResponseError } from '../@types/responseError';
 import { UserLoginType } from '../@types/user';
-import { handleUserLogin } from '../utils/api';
+import { handleFetchUserLogin } from '../utils/api';
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -17,7 +17,7 @@ function AuthProvider({ children }: { children: React.ReactNode }): JSX.Element 
     userName: string,
     password: string,
   ): Promise<UserLoginType | ResponseError> => {
-    const responseUserLogin = await handleUserLogin(userName, password);
+    const responseUserLogin = await handleFetchUserLogin(userName, password);
     if ('token' in responseUserLogin) {
       setUserData(responseUserLogin);
       return responseUserLogin;

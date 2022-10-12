@@ -8,7 +8,7 @@ const api = axios.create({
   baseURL: 'http://localhost:3001',
 });
 
-export const handleUserLogin = async (
+export const handleFetchUserLogin = async (
   userName: string,
   password: string,
 ): Promise<UserLoginType | ResponseError> => {
@@ -24,7 +24,7 @@ export const handleUserLogin = async (
   return data;
 };
 
-export const handleGetAllProjects = async (
+export const handleFetchGetAllProjects = async (
   authorization: string,
 ): Promise<IProject[] | ResponseError> => {
   const { data } = await api.get('/projects', {
@@ -38,7 +38,7 @@ export const handleGetAllProjects = async (
   return data;
 };
 
-export const handleCreateProject = async (
+export const handleFetchCreateProject = async (
   authorization: string,
   project: { name: string },
 ): Promise<IProject | ResponseError> => {
@@ -55,6 +55,42 @@ export const handleCreateProject = async (
   });
 
   return data;
+};
+
+export const handleFetchUpdateProject = async (
+  authorization: string,
+  projectId: string,
+  project: { name: string },
+): Promise<IProject | ResponseError> => {
+  const { data } = await api.patch(
+    `/projects/${projectId}`,
+    project,
+    {
+      headers: { authorization },
+    },
+  ).catch((error) => {
+    if ('response' in error) {
+      return error.response;
+    }
+  });
+
+  return data;
+};
+
+export const handleFetchDeleteProject = async (
+  authorization: string,
+  projectId: string,
+): Promise<void | ResponseError> => {
+  await api.patch(
+    `/projects/${projectId}`,
+    {
+      headers: { authorization },
+    },
+  ).catch((error) => {
+    if ('response' in error) {
+      return error.response;
+    }
+  });
 };
 
 export default api;

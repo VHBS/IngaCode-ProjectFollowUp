@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { AuthContextType } from '../@types/authContext';
 import useAuth from '../hooks/useAuth';
-import { handleCreateProject } from '../utils/api';
+import { handleFetchCreateProject } from '../utils/api';
 
 type PropType = {
     props: {
@@ -25,7 +25,7 @@ export default function NewProject({
 
   const handleCreateNewProject = async () => {
     if (validateNewProjectFields() && userData) {
-      await handleCreateProject(userData.token, { name: projectName });
+      await handleFetchCreateProject(userData.token, { name: projectName });
       await handleLoadProjects();
       setProjectName('');
       return setShowMessageError(false);
