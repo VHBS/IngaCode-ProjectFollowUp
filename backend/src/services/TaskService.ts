@@ -1,5 +1,6 @@
 import { InputTaskType, TaskType } from '../@types/task';
 import { TaskServiceType } from '../@types/taskService';
+import Project from '../sequelize/models/Project';
 import Task from '../sequelize/models/Task';
 import { ITaskService } from './interfaces/ITaskService';
 
@@ -13,6 +14,15 @@ export default class TaskService implements ITaskService<TaskServiceType> {
       where: {
         deletedAt: null,
       },
+      include: [
+        {
+          model: Project,
+          as: 'project',
+          where: {
+            deletedAt: null,
+          },
+        },
+      ],
     });
 
     return { status: 200, json: allTasks };
@@ -24,7 +34,6 @@ export default class TaskService implements ITaskService<TaskServiceType> {
   };
 
   public update = async (id: string, entity: TaskType): Promise<TaskServiceType> => {
-    console.log('service');
     const { name, description, projectId } = entity;
     const findTaskById = await Task.findByPk(id);
 
@@ -61,5 +70,29 @@ export default class TaskService implements ITaskService<TaskServiceType> {
     });
 
     return { status: 204, json: findTaskById };
+  };
+
+  public findOne = async (id: string): Promise<TaskServiceType> => {
+    const findTaskById = await Task.findByPk(id, {
+      include: [
+        {
+          model: Project,
+          as: 'project',
+          where: {
+            deletedAt: null,
+          },
+        },
+      ],
+    });
+
+    if (!findTaskById) {
+      return { status: 404, json: { message: this.taskNotFound } };
+    }
+
+    if (findTaskById.deletedAt) {
+      return { status: 400, json: { message: this.taskAlreadyDeleted } };
+    }
+
+    return { status: 200, json: findTaskById };
   };
 }
