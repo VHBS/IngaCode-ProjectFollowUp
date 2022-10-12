@@ -41,7 +41,7 @@ export default function Projects(): JSX.Element {
       { projects?.map((project) => (
         <div key={project.id}>
           <h2>{project.name}</h2>
-          <Link to={`/projects/${project}`}>
+          <Link to={`/projects/${project.id}`}>
             Project Details
           </Link>
         </div>
