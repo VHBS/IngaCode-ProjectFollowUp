@@ -93,4 +93,23 @@ export const handleFetchDeleteProject = async (
   });
 };
 
+export const handleFetchGetOneProject = async (
+  authorization: string,
+  projectId: string,
+
+): Promise<IProject | ResponseError> => {
+  const { data } = await api.get(
+    `/projects/${projectId}`,
+    {
+      headers: { authorization },
+    },
+  ).catch((error) => {
+    if ('response' in error) {
+      return error.response;
+    }
+  });
+
+  return data;
+};
+
 export default api;
