@@ -81,7 +81,7 @@ export const handleFetchDeleteProject = async (
   authorization: string,
   projectId: string,
 ): Promise<void | ResponseError> => {
-  await api.patch(
+  await api.delete(
     `/projects/${projectId}`,
     {
       headers: { authorization },
