@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
 import { AuthContextType } from '../@types/authContext';
@@ -58,10 +57,3 @@ export default function NewProject({
     </div>
   );
 }
-
-NewProject.propTypes = {
-  props: PropTypes.shape({
-    setShowModalNewProject: PropTypes.func.isRequired,
-    handleLoadProjects: PropTypes.func.isRequired,
-  }).isRequired,
-};
