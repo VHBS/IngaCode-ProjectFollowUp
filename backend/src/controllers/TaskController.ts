@@ -70,4 +70,20 @@ export default class TaskController implements IController<TaskType> {
       return next(error);
     }
   };
+
+  public findOne = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response<TaskType | ResponseError> | void> => {
+    try {
+      const { id } = req.params;
+
+      const resultTaskService = await this._service.findOne(id);
+
+      return res.status(resultTaskService.status).json(resultTaskService.json);
+    } catch (error) {
+      return next(error);
+    }
+  };
 }
