@@ -23,6 +23,7 @@
     "eslint-plugin-import-helpers"
   ],
   "rules": {
+    "@typescript-eslint/no-extra-semi": 0,
     "consistent-return":"off",
     "import/no-unresolved": "error",
     "@typescript-eslint/naming-convention": [
@@ -80,12 +81,6 @@
         ]
       }
     ],
-    // "prettier/prettier": [
-    //   "error",
-    //   {
-    //     "singleQuote": true
-    //   }
-    // ],
     "react/jsx-filename-extension": [
       1,
       {

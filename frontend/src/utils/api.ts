@@ -38,4 +38,23 @@ export const handleGetAllProjects = async (
   return data;
 };
 
+export const handleCreateProject = async (
+  authorization: string,
+  project: { name: string },
+): Promise<IProject | ResponseError> => {
+  const { data } = await api.post(
+    '/projects',
+    project,
+    {
+      headers: { authorization },
+    },
+  ).catch((error) => {
+    if ('response' in error) {
+      return error.response;
+    }
+  });
+
+  return data;
+};
+
 export default api;
