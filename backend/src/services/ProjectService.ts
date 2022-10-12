@@ -21,6 +21,7 @@ export default class ProjectService implements IProjectService<ProjectServiceTyp
           where: {
             deletedAt: null,
           },
+          required: false,
         },
       ],
     });
@@ -78,6 +79,7 @@ export default class ProjectService implements IProjectService<ProjectServiceTyp
           where: {
             deletedAt: null,
           },
+          required: false,
         },
       ],
     });

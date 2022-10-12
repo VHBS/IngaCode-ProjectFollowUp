@@ -6,12 +6,13 @@ import useAuth from '../hooks/useAuth';
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const { setUserData } = useAuth() as AuthContextType;
+  const { userData, setUserData } = useAuth() as AuthContextType;
 
   return (
     <div>
-      <button type="button" onClick={() => setUserData(null)}>Log Out</button>
+      <h5>{userData?.user.userName}</h5>
       <button type="button" onClick={() => navigate('/projects')}>Projects</button>
+      <button type="button" onClick={() => setUserData(null)}>Log Out</button>
     </div>
   );
 }

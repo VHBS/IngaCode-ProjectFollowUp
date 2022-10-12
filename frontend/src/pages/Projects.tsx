@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
 import { AuthContextType } from '../@types/authContext';
 import IProject from '../@types/project';
+import CardProject from '../components/CardProject';
 import Navbar from '../components/Navbar';
 import NewProject from '../components/NewProject';
 import useAuth from '../hooks/useAuth';
@@ -11,14 +11,11 @@ import { handleFetchGetAllProjects } from '../utils/api';
 export default function Projects(): JSX.Element {
   const [showModalNewProject, setShowModalNewProject] = useState<boolean>(false);
   const [projects, setProjects] = useState<IProject[] | null>(null);
-  const navigate = useNavigate();
+  const [filterProject, setFilterProject] = useState<string>('');
   const { userData, setUserData } = useAuth() as AuthContextType;
 
-  const handleLoadProjects = useCallback(async () => {
-    if (!userData) {
-      return navigate('/login');
-    }
-    const response = await handleFetchGetAllProjects(userData.token);
+  const handleLoadProjects = async () => {
+    const response = await handleFetchGetAllProjects(userData?.token as string);
 
     if ('message' in response) {
       return setUserData(null);
@@ -26,25 +23,42 @@ export default function Projects(): JSX.Element {
 
     setProjects(response.sort((a, b) => new Date(a.createdAt).getTime()
     - new Date(b.createdAt).getTime()));
-  }, [userData?.token, navigate, setUserData]);
+  };
 
   useEffect(() => {
     handleLoadProjects();
-  }, [userData, handleLoadProjects]);
+  }, []);
 
   return (
     <div>
       <Navbar />
       <h1>Projects</h1>
-      <button type="button" onClick={() => setShowModalNewProject(!showModalNewProject)}>New Project</button>
-      {showModalNewProject && <NewProject props={{ setShowModalNewProject, handleLoadProjects }} />}
-      { projects?.map((project) => (
-        <div key={project.id}>
-          <h2>{project.name}</h2>
-          <Link to={`/projects/${project.id}`}>
-            Project Details
-          </Link>
-        </div>
+
+      <button
+        type="button"
+        onClick={() => setShowModalNewProject(!showModalNewProject)}
+      >
+        New Project
+      </button>
+
+      { showModalNewProject
+      && (
+        <NewProject
+          props={{
+            setShowModalNewProject,
+            handleLoadProjects,
+          }}
+        />
+      )}
+
+      <label htmlFor="filter-project">
+        Filter by project name:
+        <input id="filter-project" type="text" onChange={({ target: { value } }) => setFilterProject(value)} />
+      </label>
+
+      { projects?.filter((project) => project.name.toLowerCase()
+        .includes(filterProject)).map((project) => (
+          <CardProject key={project.id} props={{ project }} />
       ))}
     </div>
   );

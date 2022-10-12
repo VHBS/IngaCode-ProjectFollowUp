@@ -1,3 +1,6 @@
+# Personal ignore
+testModels.ts
+
 # Logs
 logs
 *.log
