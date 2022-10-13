@@ -23,6 +23,8 @@ module.exports = {
       },
       taskId: {
         type: Sequelize.UUID,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
         references: {
           model: 'Tasks',
           key: 'id',
@@ -31,6 +33,8 @@ module.exports = {
       },
       collaboratorId: {
         type: Sequelize.UUID,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
         references: {
           model: 'Collaborators',
           key: 'id',
