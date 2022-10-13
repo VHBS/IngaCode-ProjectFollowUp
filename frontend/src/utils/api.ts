@@ -128,11 +128,11 @@ export const handleFetchGetAllTasks = async (
 
 export const handleFetchCreateTask = async (
   authorization: string,
-  project: { name: string, description: string, projectId: string },
-): Promise<IProject | ResponseError> => {
+  task: { name: string, description: string, projectId: string },
+): Promise<ITask | ResponseError> => {
   const { data } = await api.post(
     '/tasks',
-    project,
+    task,
     {
       headers: { authorization },
     },
@@ -147,10 +147,30 @@ export const handleFetchCreateTask = async (
 
 export const handleFetchGetOneTask = async (
   authorization: string,
-  projectId: string,
+  taskId: string,
 ): Promise<ITask | ResponseError> => {
   const { data } = await api.get(
-    `/tasks/${projectId}`,
+    `/tasks/${taskId}`,
+    {
+      headers: { authorization },
+    },
+  ).catch((error) => {
+    if ('response' in error) {
+      return error.response;
+    }
+  });
+
+  return data;
+};
+
+export const handleFetchUpdateTask = async (
+  authorization: string,
+  task: { name: string, description: string, projectId: string },
+  taskId: string,
+): Promise<ITask | ResponseError> => {
+  const { data } = await api.patch(
+    `/tasks/${taskId}`,
+    task,
     {
       headers: { authorization },
     },
