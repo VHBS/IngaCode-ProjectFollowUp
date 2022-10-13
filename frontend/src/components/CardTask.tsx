@@ -26,7 +26,7 @@ export default function CardTask({ props: { task } }: PropType): JSX.Element {
         {task.description.length > 100 && '...'}
       </p>
       <Link to={`/tasks/${id}`}>
-        Project Details
+        Task Details
       </Link>
     </div>
   );

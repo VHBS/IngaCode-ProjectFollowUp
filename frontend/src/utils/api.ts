@@ -183,4 +183,20 @@ export const handleFetchUpdateTask = async (
   return data;
 };
 
+export const handleFetchDeleteTask = async (
+  authorization: string,
+  taskId: string,
+): Promise<void | ResponseError> => {
+  await api.delete(
+    `/tasks/${taskId}`,
+    {
+      headers: { authorization },
+    },
+  ).catch((error) => {
+    if ('response' in error) {
+      return error.response;
+    }
+  });
+};
+
 export default api;
