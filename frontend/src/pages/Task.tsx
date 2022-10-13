@@ -8,9 +8,11 @@ import useAuth from '../hooks/useAuth';
 import { handleFetchGetAllTasks } from '../utils/api';
 
 export default function Task(): JSX.Element {
-  const { userData, setUserData } = useAuth() as AuthContextType;
-
   const [tasks, setTasks] = useState<ITask[] | null>(null);
+  const [filterTaskByName, setFilterTaskByName] = useState<string>('');
+  const [filterTaskByProjectName, setFilterTaskByProjectName] = useState<string>('');
+
+  const { userData, setUserData } = useAuth() as AuthContextType;
 
   const handleLoadTasks = async () => {
     const response = await handleFetchGetAllTasks(userData?.token as string);
@@ -32,9 +34,30 @@ export default function Task(): JSX.Element {
       <Navbar />
       <h1>Tasks</h1>
 
-      {tasks?.map((task) => (
-        <CardTask key={task.id} props={{ task }} />
-      ))}
+      <label htmlFor="filter-task-by-name">
+        Filter by task name:
+        <input
+          id="filter-task-by-name"
+          type="text"
+          onChange={({ target: { value } }) => setFilterTaskByName(value.toLowerCase())}
+        />
+      </label>
+      <br />
+      <label htmlFor="filter-task-by-project-name">
+        Filter by project name:
+        <input
+          id="filter-task-by-project-name"
+          type="text"
+          onChange={({ target: { value } }) => setFilterTaskByProjectName(value.toLowerCase())}
+        />
+      </label>
+
+      { tasks?.filter(({ name }) => name.toLowerCase().includes(filterTaskByName))
+        .filter(({ project }) => project?.name.toLocaleLowerCase()
+          .includes(filterTaskByProjectName))
+        .map((task) => (
+          <CardTask key={task.id} props={{ task }} />
+        ))}
     </div>
   );
 }
