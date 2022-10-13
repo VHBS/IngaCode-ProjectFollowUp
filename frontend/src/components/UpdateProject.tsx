@@ -8,11 +8,15 @@ import { handleFetchUpdateProject } from '../utils/api';
 type PropType = {
   props: {
     setShowModalUpdateProject: (showModalNewProject: boolean) => void
+    handleLoadProject: () => Promise<void>
   }
 }
 
 export default function UpdateProject({
-  props: { setShowModalUpdateProject },
+  props: {
+    setShowModalUpdateProject,
+    handleLoadProject,
+  },
 }: PropType): JSX.Element {
   const { id } = useParams();
 
@@ -29,6 +33,7 @@ export default function UpdateProject({
     if (validateNewProjectFields() && userData) {
       await handleFetchUpdateProject(userData.token, id as string, { name: projectName });
       setProjectName('');
+      await handleLoadProject();
       return setShowModalUpdateProject(false);
     }
     return setShowMessageError(true);

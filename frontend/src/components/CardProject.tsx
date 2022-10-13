@@ -12,10 +12,11 @@ export default function CardProject({ props: { project } }: PropType): JSX.Eleme
   return (
     <div>
       <h2>
+        📋
         {name}
       </h2>
 
-      {tasks && tasks.length > 0 ? <h3>Last tasks</h3> : <h3>No have tasks</h3>}
+      {tasks && tasks.length > 0 ? <h3>📝Last tasks</h3> : <h3>No have tasks</h3>}
       {tasks?.sort((a, b) => new Date(b.createdAt).getTime()
         - new Date(a.createdAt).getTime()).slice(0, 4).map((task) => (
           <li key={task.id}>

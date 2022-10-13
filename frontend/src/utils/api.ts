@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import IProject from '../@types/project';
 import { ResponseError } from '../@types/responseError';
+import ITask from '../@types/task';
 import { UserLoginType } from '../@types/user';
 
 const api = axios.create({
@@ -96,7 +97,6 @@ export const handleFetchDeleteProject = async (
 export const handleFetchGetOneProject = async (
   authorization: string,
   projectId: string,
-
 ): Promise<IProject | ResponseError> => {
   const { data } = await api.get(
     `/projects/${projectId}`,
@@ -110,6 +110,93 @@ export const handleFetchGetOneProject = async (
   });
 
   return data;
+};
+
+export const handleFetchGetAllTasks = async (
+  authorization: string,
+): Promise<ITask[] | ResponseError> => {
+  const { data } = await api.get('/tasks', {
+    headers: { authorization },
+  }).catch((error) => {
+    if ('response' in error) {
+      return error.response;
+    }
+  });
+
+  return data;
+};
+
+export const handleFetchCreateTask = async (
+  authorization: string,
+  task: { name: string, description: string, projectId: string },
+): Promise<ITask | ResponseError> => {
+  const { data } = await api.post(
+    '/tasks',
+    task,
+    {
+      headers: { authorization },
+    },
+  ).catch((error) => {
+    if ('response' in error) {
+      return error.response;
+    }
+  });
+
+  return data;
+};
+
+export const handleFetchGetOneTask = async (
+  authorization: string,
+  taskId: string,
+): Promise<ITask | ResponseError> => {
+  const { data } = await api.get(
+    `/tasks/${taskId}`,
+    {
+      headers: { authorization },
+    },
+  ).catch((error) => {
+    if ('response' in error) {
+      return error.response;
+    }
+  });
+
+  return data;
+};
+
+export const handleFetchUpdateTask = async (
+  authorization: string,
+  task: { name: string, description: string, projectId: string },
+  taskId: string,
+): Promise<ITask | ResponseError> => {
+  const { data } = await api.patch(
+    `/tasks/${taskId}`,
+    task,
+    {
+      headers: { authorization },
+    },
+  ).catch((error) => {
+    if ('response' in error) {
+      return error.response;
+    }
+  });
+
+  return data;
+};
+
+export const handleFetchDeleteTask = async (
+  authorization: string,
+  taskId: string,
+): Promise<void | ResponseError> => {
+  await api.delete(
+    `/tasks/${taskId}`,
+    {
+      headers: { authorization },
+    },
+  ).catch((error) => {
+    if ('response' in error) {
+      return error.response;
+    }
+  });
 };
 
 export default api;

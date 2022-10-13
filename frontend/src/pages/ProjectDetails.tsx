@@ -27,10 +27,8 @@ export default function ProjectDetails(): JSX.Element {
   };
 
   const handleDeleteProject = async () => {
-    if (userData) {
-      await handleFetchDeleteProject(userData.token, id as string);
-      navigate('/projects');
-    }
+    await handleFetchDeleteProject(userData?.token as string, id as string);
+    navigate('/projects');
   };
 
   useEffect(() => {
@@ -39,9 +37,18 @@ export default function ProjectDetails(): JSX.Element {
   return (
     <div>
       <Navbar />
-      {showModalUpdateProject && <UpdateProject props={{ setShowModalUpdateProject }} />}
+      {showModalUpdateProject && (
+      <UpdateProject props={{
+        setShowModalUpdateProject,
+        handleLoadProject,
+      }}
+      />
+      )}
       <div>
-        <h1>{project?.name}</h1>
+        <h1>
+          📋
+          {project?.name}
+        </h1>
         <button type="button" onClick={() => setShowModalUpdateProject(!showModalUpdateProject)}>
           Edit Project
         </button>
@@ -51,8 +58,14 @@ export default function ProjectDetails(): JSX.Element {
       </div>
       {project?.tasks?.map((task) => (
         <div key={task.id}>
-          <h4>{task.name}</h4>
-          <p>{task.description}</p>
+          <h4>
+            📝
+            {task.name}
+          </h4>
+          <p>
+            {task.description.slice(0, 100)}
+            {task.description.length > 100 && '...'}
+          </p>
         </div>
       ))}
     </div>
