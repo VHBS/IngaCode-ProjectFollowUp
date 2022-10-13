@@ -127,4 +127,23 @@ export const handleFetchGetAllTasks = async (
   return data;
 };
 
+export const handleFetchCreateTask = async (
+  authorization: string,
+  project: { name: string, description: string, projectId: string },
+): Promise<IProject | ResponseError> => {
+  const { data } = await api.post(
+    '/tasks',
+    project,
+    {
+      headers: { authorization },
+    },
+  ).catch((error) => {
+    if ('response' in error) {
+      return error.response;
+    }
+  });
+
+  return data;
+};
+
 export default api;

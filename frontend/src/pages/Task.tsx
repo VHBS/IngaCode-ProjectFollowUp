@@ -4,10 +4,12 @@ import { AuthContextType } from '../@types/authContext';
 import ITask from '../@types/task';
 import CardTask from '../components/CardTask';
 import Navbar from '../components/Navbar';
+import NewTask from '../components/NewTask';
 import useAuth from '../hooks/useAuth';
 import { handleFetchGetAllTasks } from '../utils/api';
 
 export default function Task(): JSX.Element {
+  const [showModalNewTask, setShowModalNewTask] = useState<boolean>(false);
   const [tasks, setTasks] = useState<ITask[] | null>(null);
   const [filterTaskByName, setFilterTaskByName] = useState<string>('');
   const [filterTaskByProjectName, setFilterTaskByProjectName] = useState<string>('');
@@ -32,8 +34,11 @@ export default function Task(): JSX.Element {
   return (
     <div>
       <Navbar />
+      <button type="button" onClick={() => setShowModalNewTask(!showModalNewTask)}>
+        New Task
+      </button>
+      {showModalNewTask && <NewTask props={{ handleLoadTasks, setShowModalNewTask }} />}
       <h1>Tasks</h1>
-
       <label htmlFor="filter-task-by-name">
         Filter by task name:
         <input
@@ -42,6 +47,7 @@ export default function Task(): JSX.Element {
           onChange={({ target: { value } }) => setFilterTaskByName(value.toLowerCase())}
         />
       </label>
+
       <br />
       <label htmlFor="filter-task-by-project-name">
         Filter by project name:
