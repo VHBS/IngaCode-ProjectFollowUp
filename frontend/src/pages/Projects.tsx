@@ -32,15 +32,12 @@ export default function Projects(): JSX.Element {
   return (
     <div>
       <Navbar />
-      <h1>Projects</h1>
-
       <button
         type="button"
         onClick={() => setShowModalNewProject(!showModalNewProject)}
       >
         New Project
       </button>
-
       { showModalNewProject
       && (
         <NewProject
@@ -50,6 +47,8 @@ export default function Projects(): JSX.Element {
           }}
         />
       )}
+
+      <h1>Projects</h1>
 
       <label htmlFor="filter-project">
         Filter by project name:
