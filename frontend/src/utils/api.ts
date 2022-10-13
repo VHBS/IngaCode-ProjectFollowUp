@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import IProject from '../@types/project';
 import { ResponseError } from '../@types/responseError';
+import ITask from '../@types/task';
 import { UserLoginType } from '../@types/user';
 
 const api = axios.create({
@@ -104,6 +105,20 @@ export const handleFetchGetOneProject = async (
       headers: { authorization },
     },
   ).catch((error) => {
+    if ('response' in error) {
+      return error.response;
+    }
+  });
+
+  return data;
+};
+
+export const handleFetchGetAllTasks = async (
+  authorization: string,
+): Promise<ITask[] | ResponseError> => {
+  const { data } = await api.get('/tasks', {
+    headers: { authorization },
+  }).catch((error) => {
     if ('response' in error) {
       return error.response;
     }

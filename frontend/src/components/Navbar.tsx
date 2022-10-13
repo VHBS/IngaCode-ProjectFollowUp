@@ -11,8 +11,24 @@ export default function Navbar() {
   return (
     <div>
       <h5>{userData?.user.userName}</h5>
-      <button type="button" onClick={() => navigate('/projects')}>Projects</button>
-      <button type="button" onClick={() => setUserData(null)}>Log Out</button>
+      <button
+        type="button"
+        onClick={() => navigate('/projects')}
+      >
+        Projects
+      </button>
+      <button
+        type="button"
+        onClick={() => navigate('/tasks')}
+      >
+        Tasks
+      </button>
+      <button
+        type="button"
+        onClick={() => setUserData(null)}
+      >
+        Log Out
+      </button>
     </div>
   );
 }
