@@ -97,7 +97,6 @@ export const handleFetchDeleteProject = async (
 export const handleFetchGetOneProject = async (
   authorization: string,
   projectId: string,
-
 ): Promise<IProject | ResponseError> => {
   const { data } = await api.get(
     `/projects/${projectId}`,
@@ -134,6 +133,24 @@ export const handleFetchCreateTask = async (
   const { data } = await api.post(
     '/tasks',
     project,
+    {
+      headers: { authorization },
+    },
+  ).catch((error) => {
+    if ('response' in error) {
+      return error.response;
+    }
+  });
+
+  return data;
+};
+
+export const handleFetchGetOneTask = async (
+  authorization: string,
+  projectId: string,
+): Promise<ITask | ResponseError> => {
+  const { data } = await api.get(
+    `/tasks/${projectId}`,
     {
       headers: { authorization },
     },
