@@ -38,9 +38,6 @@ export default function ProjectDetails(): JSX.Element {
     handleLoadProject();
   }, []);
 
-  // console.log(project?.tasks?.map((task) => task.collaborators?.some(
-  //   (collaborator) => collaborator.name,
-  // )).some((result) => result));
   return (
     <div>
       <Navbar />
@@ -86,7 +83,7 @@ export default function ProjectDetails(): JSX.Element {
         )).some((result) => result) ? (
           <h3>🙎‍♀️💻🙎 Project collaborators</h3>
           ) : (
-            <h3>No collaborators on this project</h3>
+            <h3>💻 No collaborators on this project</h3>
           )}
         {project?.tasks?.map((task) => task.collaborators?.map((collaborator) => (
           <h5 key={collaborator.id}>
