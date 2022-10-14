@@ -23,22 +23,14 @@ export default function Projects(): JSX.Element {
       return setUserData(null);
     }
 
-    setProjects(response.sort((a, b) => new Date(a.createdAt).getTime()
-    - new Date(b.createdAt).getTime()));
+    setProjects(response.sort((a, b) => new Date(b.createdAt).getTime()
+    - new Date(a.createdAt).getTime()));
+    setProjects(response);
   };
 
   useEffect(() => {
     handleLoadProjects();
   }, []);
-
-  console.log(projects?.filter((project) => project.name
-    .toLowerCase().includes(filterProject))
-    .filter(({ tasks }) => tasks?.some((task) => task.name
-      .toLowerCase().includes(filterTaskByName)))
-    .filter(({ tasks }) => tasks?.some(({ collaborators }) => collaborators?.some(
-      (collaborator) => collaborator.name
-        .toLowerCase().includes(filterTaskByCollaboratorName),
-    ))));
 
   return (
     <div>
@@ -63,7 +55,11 @@ export default function Projects(): JSX.Element {
 
       <label htmlFor="filter-project">
         Filter by project name:
-        <input id="filter-project" type="text" onChange={({ target: { value } }) => setFilterProject(value.toLowerCase())} />
+        <input
+          id="filter-project"
+          type="text"
+          onChange={({ target: { value } }) => setFilterProject(value.toLowerCase())}
+        />
       </label>
 
       <br />
@@ -76,7 +72,7 @@ export default function Projects(): JSX.Element {
         />
       </label>
 
-      <br />
+      {/* <br />
       <label htmlFor="filter-task-by-collaborator-name">
         Filter by collaborator name:
         <input
@@ -84,16 +80,24 @@ export default function Projects(): JSX.Element {
           type="text"
           onChange={({ target: { value } }) => setFilterTaskByCollaboratorName(value.toLowerCase())}
         />
-      </label>
+      </label> */}
 
       { projects?.filter((project) => project.name
         .toLowerCase().includes(filterProject))
-        .filter(({ tasks }) => tasks?.some((task) => task.name
-          .toLowerCase().includes(filterTaskByName)))
-        .filter(({ tasks }) => tasks?.some(({ collaborators }) => collaborators?.some(
-          (collaborator) => collaborator.name
-            .toLowerCase().includes(filterTaskByCollaboratorName),
-        )))
+        .filter((project) => {
+          if (filterTaskByName === ''
+          && project.tasks?.length === 0) return true;
+          return project.tasks?.some((task) => task.name.toLowerCase()
+            .includes(filterTaskByName));
+        })
+        // .filter(({ tasks }) => tasks?.some((task) => {
+        //   // console.log(task);
+        //   // return true;
+        //   if (filterTaskByCollaboratorName === ''
+        //   || task.collaborators?.length === 0) return true;
+        //   return task.collaborators?.some((collaborator) => collaborator.name.toLowerCase()
+        //     .includes(filterTaskByCollaboratorName));
+        // }))
         .map((project) => (
           <CardProject key={project.id} props={{ project }} />
         ))}
