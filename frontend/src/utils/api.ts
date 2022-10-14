@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import ICollaborator from '../@types/collaborator';
 import IProject from '../@types/project';
 import { ResponseError } from '../@types/responseError';
 import ITask from '../@types/task';
@@ -197,6 +198,39 @@ export const handleFetchDeleteTask = async (
       return error.response;
     }
   });
+};
+
+export const handleFetchGetAllCollaborators = async (
+  authorization: string,
+): Promise<ICollaborator[] | ResponseError> => {
+  const { data } = await api.get('/collaborators', {
+    headers: { authorization },
+  }).catch((error) => {
+    if ('response' in error) {
+      return error.response;
+    }
+  });
+
+  return data;
+};
+
+export const handleFetchCreateCollaboratorTask = async (
+  authorization: string,
+  collaboratorTask: { collaboratorId: string, taskId: string },
+): Promise<ICollaboratorTask | ResponseError> => {
+  const { data } = await api.post(
+    '/collaboratortask',
+    collaboratorTask,
+    {
+      headers: { authorization },
+    },
+  ).catch((error) => {
+    if ('response' in error) {
+      return error.response;
+    }
+  });
+
+  return data;
 };
 
 export default api;
