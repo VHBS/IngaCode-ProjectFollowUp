@@ -22,6 +22,10 @@ export default class TaskService implements ITaskService<TaskServiceType> {
           through: {
             attributes: [],
           },
+          where: {
+            deletedAt: null,
+          },
+          required: false,
         },
         {
           model: Project,
@@ -88,6 +92,9 @@ export default class TaskService implements ITaskService<TaskServiceType> {
           as: 'collaborators',
           through: {
             attributes: [],
+          },
+          where: {
+            deletedAt: null,
           },
           required: false,
         },
