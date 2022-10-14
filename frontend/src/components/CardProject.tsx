@@ -28,10 +28,12 @@ export default function CardProject({
       ))}
 
       <div>
-        {tasks && tasks[0]?.collaborators ? (
+        {tasks?.map((task) => task.collaborators?.some(
+          (collaborator) => collaborator.name,
+        )).some((result) => result) ? (
           <h3>🙎‍♀️💻🙎 Collaborators</h3>) : (
             <h3>No collaborators on this project</h3>
-        )}
+          )}
         {tasks?.map((task) => task.collaborators?.map((collaborator) => (
           <h5 key={collaborator.id}>
             {collaborator.name}

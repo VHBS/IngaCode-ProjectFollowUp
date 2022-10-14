@@ -63,7 +63,10 @@ export default function TaskDetails(): JSX.Element {
         <p>{task?.description}</p>
       </div>
       <div>
-        <h3>🙎‍♀️💻🙎 Collaborators</h3>
+        {task?.collaborators?.some(
+          (collaborator) => collaborator.name,
+        ) && <h3>🙎‍♀️💻🙎 Collaborators</h3>}
+
         {task?.collaborators?.map((collaborator) => (
           <h5 key={collaborator.id}>
             {collaborator.name}

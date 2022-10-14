@@ -14,6 +14,9 @@ export default function CardTask({ props: { task, showProjectName } }: PropType)
   const {
     id, name, description, project, collaborators,
   } = task;
+
+  // console.log(collaborators);
+
   return (
     <div>
       <h2>
