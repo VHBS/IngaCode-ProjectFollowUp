@@ -1,37 +1,9 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('TimeTrackers', {
-      id: {
+    await queryInterface.createTable('CollaboratorTasks', {
+      colaboratorId: {
         allowNull: false,
-        primaryKey: true,
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
-      },
-      startDate: {
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW,
-        field: 'start_date',
-      },
-      endDate: {
-        type: Sequelize.DATE,
-        field: 'end_date',
-      },
-      timeZoneId: {
-        type: Sequelize.STRING(200),
-        field: 'time_zone_id',
-      },
-      taskId: {
-        type: Sequelize.UUID,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        references: {
-          model: 'Tasks',
-          key: 'id',
-        },
-        field: 'task_id',
-      },
-      collaboratorId: {
         type: Sequelize.UUID,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
@@ -40,6 +12,17 @@ module.exports = {
           key: 'id',
         },
         field: 'collaborator_id',
+      },
+      taskId: {
+        allowNull: false,
+        type: Sequelize.UUID,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Tasks',
+          key: 'id',
+        },
+        field: 'task_id',
       },
       createdAt: {
         allowNull: false,
@@ -60,6 +43,6 @@ module.exports = {
     });
   },
   async down(queryInterface) {
-    await queryInterface.dropTable('TimeTrackers');
+    await queryInterface.dropTable('CollaboratorTasks');
   },
 };

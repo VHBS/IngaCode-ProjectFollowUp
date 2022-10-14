@@ -17,6 +17,8 @@ module.exports = {
       projectId: {
         allowNull: false,
         type: Sequelize.UUID,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
         references: {
           model: 'Projects',
           key: 'id',

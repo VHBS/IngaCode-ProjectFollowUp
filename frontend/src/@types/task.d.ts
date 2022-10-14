@@ -1,3 +1,4 @@
+import ICollaborator from './collaborator';
 import IProject from './project';
 
 type ITask = {
@@ -6,6 +7,7 @@ type ITask = {
   description: string;
   projectId: string;
   project?: IProject;
+  collaborators?: ICollaborator[];
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;

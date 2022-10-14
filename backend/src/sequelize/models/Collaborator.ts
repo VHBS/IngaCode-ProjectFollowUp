@@ -1,6 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
 import db from '.';
 import ICollaborator from './interfaces/ICollaborator';
+import Task from './Task';
 
 class Collaborator extends Model implements ICollaborator {
   declare id: string;
@@ -65,5 +66,17 @@ Collaborator.init(
     tableName: 'Collaborators',
   },
 );
+
+Collaborator.belongsToMany(Task, {
+  through: 'CollaboratorTasks',
+  as: 'tasks',
+  foreignKey: 'collaboratorId',
+});
+
+Task.belongsToMany(Collaborator, {
+  through: 'CollaboratorTasks',
+  as: 'collaborators',
+  foreignKey: 'taskId',
+});
 
 export default Collaborator;

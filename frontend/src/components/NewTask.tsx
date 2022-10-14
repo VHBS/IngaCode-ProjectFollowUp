@@ -59,6 +59,7 @@ export default function NewTask({
       };
       await handleFetchCreateTask(userData?.token as string, taskToCreate);
       await handleLoadTasks();
+      setShowModalNewTask(false);
     }
   };
 

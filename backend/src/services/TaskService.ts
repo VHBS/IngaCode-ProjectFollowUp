@@ -1,5 +1,6 @@
 import { InputTaskType, TaskType } from '../@types/task';
 import { TaskServiceType } from '../@types/taskService';
+import Collaborator from '../sequelize/models/Collaborator';
 import Project from '../sequelize/models/Project';
 import Task from '../sequelize/models/Task';
 import { ITaskService } from './interfaces/ITaskService';
@@ -15,6 +16,17 @@ export default class TaskService implements ITaskService<TaskServiceType> {
         deletedAt: null,
       },
       include: [
+        {
+          model: Collaborator,
+          as: 'collaborators',
+          through: {
+            attributes: [],
+          },
+          where: {
+            deletedAt: null,
+          },
+          required: false,
+        },
         {
           model: Project,
           as: 'project',
@@ -75,6 +87,17 @@ export default class TaskService implements ITaskService<TaskServiceType> {
   public findOne = async (id: string): Promise<TaskServiceType> => {
     const findTaskById = await Task.findByPk(id, {
       include: [
+        {
+          model: Collaborator,
+          as: 'collaborators',
+          through: {
+            attributes: [],
+          },
+          where: {
+            deletedAt: null,
+          },
+          required: false,
+        },
         {
           model: Project,
           as: 'project',

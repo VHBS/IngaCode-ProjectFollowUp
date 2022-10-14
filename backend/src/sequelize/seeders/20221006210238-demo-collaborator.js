@@ -6,7 +6,7 @@ module.exports = {
       {
         id: 'e4824843-40b0-4d2a-8d33-c312b8268ded',
         name: 'Victor Schlichting',
-        user_id: 'd8723224-e445-4ccc-aeb3-a4ad55462c84',
+        user_id: '88ac8439-1c23-4902-b11a-534cf0411d91',
         created_at: new Date(),
         updated_at: new Date(),
       },

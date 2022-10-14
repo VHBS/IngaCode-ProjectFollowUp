@@ -1,5 +1,6 @@
 import { InputProjectType } from '../@types/project';
 import { ProjectServiceType } from '../@types/projectService';
+import Collaborator from '../sequelize/models/Collaborator';
 import Project from '../sequelize/models/Project';
 import Task from '../sequelize/models/Task';
 import { IProjectService } from './interfaces/IProjectService';
@@ -22,6 +23,16 @@ export default class ProjectService implements IProjectService<ProjectServiceTyp
             deletedAt: null,
           },
           required: false,
+          include: [
+            {
+              model: Collaborator,
+              as: 'collaborators',
+              through: {
+                attributes: [],
+              },
+              required: false,
+            },
+          ],
         },
       ],
     });
@@ -80,6 +91,16 @@ export default class ProjectService implements IProjectService<ProjectServiceTyp
             deletedAt: null,
           },
           required: false,
+          include: [
+            {
+              model: Collaborator,
+              as: 'collaborators',
+              through: {
+                attributes: [],
+              },
+              required: false,
+            },
+          ],
         },
       ],
     });

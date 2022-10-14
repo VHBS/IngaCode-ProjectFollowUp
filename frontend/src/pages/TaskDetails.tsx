@@ -51,15 +51,28 @@ export default function TaskDetails(): JSX.Element {
       <button type="button" onClick={() => handleDeleteTask()}>
         Delete Task
       </button>
-      <h1>
-        📝
-        {task?.name}
-      </h1>
-      <h4>
-        📋
-        {task?.project?.name}
-      </h4>
-      <p>{task?.description}</p>
+      <div>
+        <h1>
+          📝
+          {task?.name}
+        </h1>
+        <h4>
+          📋
+          {task?.project?.name}
+        </h4>
+        <p>{task?.description}</p>
+      </div>
+      <div>
+        {task?.collaborators?.some(
+          (collaborator) => collaborator.name,
+        ) && <h3>🙎‍♀️💻🙎 Collaborators</h3>}
+
+        {task?.collaborators?.map((collaborator) => (
+          <h5 key={collaborator.id}>
+            {collaborator.name}
+          </h5>
+        ))}
+      </div>
     </div>
   );
 }
