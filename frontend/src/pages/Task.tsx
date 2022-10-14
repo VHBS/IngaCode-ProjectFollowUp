@@ -62,7 +62,7 @@ export default function Task(): JSX.Element {
         .filter(({ project }) => project?.name.toLocaleLowerCase()
           .includes(filterTaskByProjectName))
         .map((task) => (
-          <CardTask key={task.id} props={{ task }} />
+          <CardTask key={task.id} props={{ task, showProjectName: true }} />
         ))}
     </div>
   );
