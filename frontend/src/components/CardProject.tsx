@@ -32,7 +32,7 @@ export default function CardProject({
           (collaborator) => collaborator.name,
         )).some((result) => result) ? (
           <h3>🙎‍♀️💻🙎 Collaborators</h3>) : (
-            <h3>No collaborators on this project</h3>
+            <h3>💻 No collaborators on this project</h3>
           )}
         {tasks?.map((task) => task.collaborators?.map((collaborator) => (
           <h5 key={collaborator.id}>

@@ -13,6 +13,7 @@ export default function Task(): JSX.Element {
   const [tasks, setTasks] = useState<ITask[] | null>(null);
   const [filterTaskByName, setFilterTaskByName] = useState<string>('');
   const [filterTaskByProjectName, setFilterTaskByProjectName] = useState<string>('');
+  const [filterTaskByCollaboratorName, setFilterTaskByCollaboratorName] = useState<string>('');
 
   const { userData, setUserData } = useAuth() as AuthContextType;
 
@@ -58,9 +59,21 @@ export default function Task(): JSX.Element {
         />
       </label>
 
+      <br />
+      <label htmlFor="filter-task-by-collaborator-name">
+        Filter by collaborator name:
+        <input
+          id="filter-task-by-collaborator-name"
+          type="text"
+          onChange={({ target: { value } }) => setFilterTaskByCollaboratorName(value.toLowerCase())}
+        />
+      </label>
+
       { tasks?.filter(({ name }) => name.toLowerCase().includes(filterTaskByName))
         .filter(({ project }) => project?.name.toLocaleLowerCase()
           .includes(filterTaskByProjectName))
+        .filter(({ collaborators }) => collaborators?.some((collaborator) => collaborator.name
+          .toLowerCase().includes(filterTaskByCollaboratorName)))
         .map((task) => (
           <CardTask key={task.id} props={{ task, showProjectName: true }} />
         ))}

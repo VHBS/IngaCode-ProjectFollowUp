@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContextType } from '../@types/authContext';
 import ITask from '../@types/task';
 import Navbar from '../components/Navbar';
+import NewCollaboratorTask from '../components/NewCollaboratorTask';
 import UpdateTask from '../components/UpdateTask';
 import useAuth from '../hooks/useAuth';
 import { handleFetchDeleteTask, handleFetchGetOneTask } from '../utils/api';
@@ -11,6 +12,7 @@ import { handleFetchDeleteTask, handleFetchGetOneTask } from '../utils/api';
 export default function TaskDetails(): JSX.Element {
   const [task, setTask] = useState<ITask | null>(null);
   const [showModalUpdateTask, setShowModalUpdateTask] = useState<boolean>(false);
+  const [showModalNewCollaboratorTask, setShowModalNewCollaboratorTask] = useState<boolean>(false);
   const { userData, setUserData } = useAuth() as AuthContextType;
   const { id } = useParams();
   const navigate = useNavigate();
@@ -37,20 +39,46 @@ export default function TaskDetails(): JSX.Element {
   return (
     <div>
       <Navbar />
-      {showModalUpdateTask && (
-      <UpdateTask props={{
-        handleLoadTask,
-        setShowModalUpdateTask,
-      }}
-      />
+
+      {showModalNewCollaboratorTask && (
+        <NewCollaboratorTask
+          props={{
+            setShowModalNewCollaboratorTask,
+            handleLoadTask,
+          }}
+        />
       )}
 
-      <button type="button" onClick={() => setShowModalUpdateTask(!showModalUpdateTask)}>
+      {showModalUpdateTask && (
+        <UpdateTask
+          props={{
+            handleLoadTask,
+            setShowModalUpdateTask,
+          }}
+        />
+      )}
+
+      <button
+        type="button"
+        onClick={() => setShowModalNewCollaboratorTask(!showModalNewCollaboratorTask)}
+      >
+        Add collaborator
+      </button>
+
+      <button
+        type="button"
+        onClick={() => setShowModalUpdateTask(!showModalUpdateTask)}
+      >
         Edit Task
       </button>
-      <button type="button" onClick={() => handleDeleteTask()}>
+
+      <button
+        type="button"
+        onClick={() => handleDeleteTask()}
+      >
         Delete Task
       </button>
+
       <div>
         <h1>
           📝
@@ -65,7 +93,7 @@ export default function TaskDetails(): JSX.Element {
       <div>
         {task?.collaborators?.some(
           (collaborator) => collaborator.name,
-        ) && <h3>🙎‍♀️💻🙎 Collaborators</h3>}
+        ) ? <h3>🙎‍♀️💻🙎 Collaborators</h3> : <h3>💻No collaborators in this task</h3>}
 
         {task?.collaborators?.map((collaborator) => (
           <h5 key={collaborator.id}>
