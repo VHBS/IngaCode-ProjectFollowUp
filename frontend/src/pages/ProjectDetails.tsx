@@ -3,13 +3,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { AuthContextType } from '../@types/authContext';
 import IProject from '../@types/project';
+import CardTask from '../components/CardTask';
 import Navbar from '../components/Navbar';
 import UpdateProject from '../components/UpdateProject';
 import useAuth from '../hooks/useAuth';
 import { handleFetchDeleteProject, handleFetchGetOneProject } from '../utils/api';
 
 export default function ProjectDetails(): JSX.Element {
-  const [project, setProject] = useState<IProject | null>(null);
+  const [project, setProject] = useState<IProject>();
 
   const [showModalUpdateProject, setShowModalUpdateProject] = useState<boolean>(false);
   const { userData, setUserData } = useAuth() as AuthContextType;
@@ -34,6 +35,10 @@ export default function ProjectDetails(): JSX.Element {
   useEffect(() => {
     handleLoadProject();
   }, []);
+
+  console.log(project?.tasks?.map((task) => task.collaborators?.map(
+    (collaborator) => collaborator.name,
+  )).some((result) => result));
   return (
     <div>
       <Navbar />
@@ -56,18 +61,27 @@ export default function ProjectDetails(): JSX.Element {
           Delete Project
         </button>
       </div>
+      {project?.tasks && !project?.tasks[0] && (
+      <h3>No tasks in this project</h3>
+      )}
       {project?.tasks?.map((task) => (
-        <div key={task.id}>
-          <h4>
-            📝
-            {task.name}
-          </h4>
-          <p>
-            {task.description.slice(0, 100)}
-            {task.description.length > 100 && '...'}
-          </p>
-        </div>
+        <CardTask key={task.id} props={{ task, showProjectName: false }} />
+
       ))}
+      <div>
+        {project?.tasks?.map((task) => task.collaborators?.map(
+          (collaborator) => collaborator.name,
+        )).some((result) => result) ? (
+          <h3>🙎‍♀️💻🙎 Project collaborators</h3>
+          ) : (
+            <h3>No collaborators on this project</h3>
+          )}
+        {project?.tasks?.map((task) => task.collaborators?.map((collaborator) => (
+          <h5 key={collaborator.id}>
+            {collaborator.name}
+          </h5>
+        )))}
+      </div>
     </div>
   );
 }
