@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import collaboratorTaskRoutes from './collaboratorTaskRouter';
 import projectRoutes from './projectRouter';
 import taskRoutes from './taskRouter';
 import timeTrackerRoutes from './timeTrackerRouter';
@@ -10,5 +11,6 @@ routes.use('/users', userRoutes);
 routes.use('/projects', projectRoutes);
 routes.use('/tasks', taskRoutes);
 routes.use('/timetracker', timeTrackerRoutes);
+routes.use('/collaboratortask', collaboratorTaskRoutes);
 
 export default routes;
