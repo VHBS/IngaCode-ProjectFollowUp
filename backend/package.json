@@ -6,9 +6,10 @@
   "scripts": {
     "start": "node build/index.js",
     "build": "tsc --build tsconfig.build.json",
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "predev": "npm run db:reset",
     "dev": "tsnd --transpile-only --watch \"./src/**\" ./src/index.ts",
     "test": "jest",
-    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "prettier": "prettier 'src/**/*.ts'",
     "prettier:fix": "prettier --write 'src/**/*.ts'",
     "eslint": "eslint 'src/**/*.ts'",
