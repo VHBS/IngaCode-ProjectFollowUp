@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { AuthContextType } from '../@types/authContext';
 import useAuth from '../hooks/useAuth';
 import { Button, Input, Label } from '../styles/default';
-import { NewProjectComponent, NewProjectContainer, NewProjectTitle } from '../styles/NewProject';
+import { NewItemComponent, NewItemContainer, NewProjectTitle } from '../styles/NewRegistry';
 import { handleFetchCreateProject } from '../utils/api';
 
 type PropType = {
@@ -36,8 +36,8 @@ export default function NewProject({
   };
 
   return (
-    <NewProjectComponent>
-      <NewProjectContainer>
+    <NewItemComponent>
+      <NewItemContainer>
         <NewProjectTitle>
           New Project
         </NewProjectTitle>
@@ -61,8 +61,8 @@ export default function NewProject({
             Close
           </Button>
         </div>
-      </NewProjectContainer>
+      </NewItemContainer>
 
-    </NewProjectComponent>
+    </NewItemComponent>
   );
 }

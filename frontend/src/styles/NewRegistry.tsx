@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
-export const NewProjectComponent = styled.div`
+export const NewItemComponent = styled.div`
   display: flex;
   margin-bottom: 0.5em;
-  
 `;
 
 export const NewProjectTitle = styled.h2`
@@ -13,7 +12,7 @@ export const NewProjectTitle = styled.h2`
   color: rgb(204, 197, 185);
 `;
 
-export const NewProjectContainer = styled.div`
+export const NewItemContainer = styled.div`
   border-radius: 0.2em;
   padding: 1em;
   width: 70%;

@@ -39,7 +39,14 @@ export const TitlePage = styled.div`
   width: 70%;
   max-width: 20em;
   margin-inline: auto;
-  
+
+  h1 {
+    padding: 0.2em 0.5em;
+    border-radius: 0.2em;
+    color: rgb(204, 197, 185);
+    background-color: rgb(235, 94, 40);
+    background-color: rgb(64, 61, 57, 0.7);
+  }
 
   .title-container-buttons {
     padding: 1em;
