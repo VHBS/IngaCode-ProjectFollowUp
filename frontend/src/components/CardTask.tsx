@@ -29,7 +29,7 @@ export default function CardTask({ props: { task, showProjectName } }: PropType)
       {showProjectName && (
         <CardAssociationsTask>
           <h5>📋 Project</h5>
-          <StyledLink to={`/projects/${id}`} className="links">
+          <StyledLink to={`/projects/${project?.id}`} className="links">
             {project?.name}
           </StyledLink>
         </CardAssociationsTask>
