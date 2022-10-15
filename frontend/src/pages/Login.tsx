@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { AuthContextType } from '../@types/authContext';
 import useAuth from '../hooks/useAuth';
+import { Button, Input, Label } from '../styles/default';
+import { ContainerInput, LoginPage } from '../styles/Login';
 
 export default function Login(): JSX.Element {
   const [userName, setUserName] = useState<string>('');
@@ -17,16 +19,38 @@ export default function Login(): JSX.Element {
   }, [userData, navigate]);
 
   return (
-    <div>
-      <label htmlFor="userName">
-        User Name:
-        <input id="userName" type="text" onChange={({ target: { value } }) => setUserName(value)} />
-      </label>
-      <label htmlFor="password">
-        Password:
-        <input id="password" type="password" onChange={({ target: { value } }) => setPassword(value)} />
-      </label>
-      <button type="button" onClick={() => handleLogin(userName, password)}>Log In</button>
-    </div>
+    <LoginPage>
+      <ContainerInput>
+        <Label htmlFor="userName">
+          <span>
+            User Name:
+          </span>
+          <Input
+            id="userName"
+            type="text"
+            onChange={({ target: { value } }) => setUserName(value)}
+          />
+        </Label>
+
+        <Label htmlFor="password">
+          <span>
+            Password:
+          </span>
+          <Input
+            id="password"
+            type="password"
+            onChange={({ target: { value } }) => setPassword(value)}
+          />
+        </Label>
+
+        <Button
+          type="button"
+          onClick={() => handleLogin(userName, password)}
+        >
+          Log In
+
+        </Button>
+      </ContainerInput>
+    </LoginPage>
   );
 }
