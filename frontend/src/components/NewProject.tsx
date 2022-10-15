@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { AuthContextType } from '../@types/authContext';
 import useAuth from '../hooks/useAuth';
+import { Button, Input, Label } from '../styles/default';
+import { NewProjectComponent, NewProjectContainer } from '../styles/NewProject';
 import { handleFetchCreateProject } from '../utils/api';
 
 type PropType = {
@@ -34,26 +36,33 @@ export default function NewProject({
   };
 
   return (
-    <div>
-      <h1>
-        NewProject
-      </h1>
-      { showMessageError && <p>Insert a project name! </p>}
-      <label htmlFor="name">
-        Project Name:
-        <input
-          id="name"
-          type="text"
-          onChange={({ target: { value } }) => setProjectName(value)}
-          value={projectName}
-        />
-      </label>
-      <button type="button" onClick={() => handleCreateNewProject()}>
-        Create Project
-      </button>
-      <button type="button" onClick={() => setShowModalNewProject(false)}>
-        Close
-      </button>
-    </div>
+    <NewProjectComponent>
+      <NewProjectContainer>
+        <h1>
+          New Project
+        </h1>
+        { showMessageError && <p>Insert a project name! </p>}
+        <Label htmlFor="name">
+          <span>
+            📋 Project Name:
+          </span>
+          <Input
+            id="name"
+            type="text"
+            onChange={({ target: { value } }) => setProjectName(value)}
+            value={projectName}
+          />
+        </Label>
+        <div className="title-container-buttons">
+          <Button type="button" onClick={() => handleCreateNewProject()}>
+            Create
+          </Button>
+          <Button type="button" onClick={() => setShowModalNewProject(false)}>
+            Close
+          </Button>
+        </div>
+      </NewProjectContainer>
+
+    </NewProjectComponent>
   );
 }

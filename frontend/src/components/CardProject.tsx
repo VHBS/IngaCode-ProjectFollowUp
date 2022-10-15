@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import IProject from '../@types/project';
+import {
+  CardProjectComponent, CardProjectName, ProjectCardCollaborators, ProjectCardTasks, StyledLink,
+} from '../styles/CardProject';
 
 type PropType = {
   props: { project: IProject }
@@ -12,38 +14,42 @@ export default function CardProject({
   { project: { name, id, tasks } },
 }: PropType): JSX.Element {
   return (
-    <div>
-      <h2>
-        📋
-        {' '}
-        {name}
-      </h2>
+    <CardProjectComponent>
+      <StyledLink to={`/projects/${id}`}>
+        <CardProjectName>
+          📋
+          {' '}
+          {name}
+        </CardProjectName>
+      </StyledLink>
 
-      {tasks && tasks.length > 0 ? <h3>📝 Last tasks</h3> : <h3>No tasks in this project</h3>}
-      {tasks?.sort((a, b) => new Date(b.createdAt).getTime()
+      <ProjectCardTasks>
+        {tasks && tasks.length > 0 ? <h5>📝 Last tasks</h5> : <h6>📄 No tasks in this project</h6>}
+        {tasks?.sort((a, b) => new Date(b.createdAt).getTime()
         - new Date(a.createdAt).getTime()).slice(0, 4).map((task) => (
-          <h5 key={task.id}>
+          <StyledLink to={`/tasks/${task.id}`} className="task-name" key={task.id}>
             {task.name}
-          </h5>
-      ))}
+          </StyledLink>
+        ))}
+      </ProjectCardTasks>
 
-      <div>
+      <ProjectCardCollaborators>
         {tasks?.map((task) => task.collaborators?.some(
           (collaborator) => collaborator.name,
         )).some((result) => result) ? (
-          <h3>🙎‍♀️💻🙎 Collaborators</h3>) : (
-            <h3>💻 No collaborators on this project</h3>
+          <h5>🙎‍♀️💻🙎 Collaborators</h5>) : (
+            <h6>💻 No collaborators on this project</h6>
           )}
         {tasks?.map((task) => task.collaborators?.map((collaborator) => (
-          <h5 key={collaborator.id}>
+          <p key={collaborator.id}>
             {collaborator.name}
-          </h5>
+          </p>
         )))}
-      </div>
+      </ProjectCardCollaborators>
 
-      <Link to={`/projects/${id}`}>
-        Project Details
-      </Link>
-    </div>
+      <StyledLink className="project-details" to={`/projects/${id}`}>
+        Details
+      </StyledLink>
+    </CardProjectComponent>
   );
 }
