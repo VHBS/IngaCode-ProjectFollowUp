@@ -5,6 +5,25 @@ export const Input = styled.input`
   border-radius: 0.2em;
   padding: 0.2em 0.5em;
   color: rgb(37, 36, 34);
+  background-color: rgb(204, 197, 185);
+  border: 1px solid rgb(235, 94, 40, 0);
+  :focus {
+    border: 1px solid rgb(235, 94, 40);
+    outline: none;
+  }
+`;
+
+export const Select = styled.select`
+  height: 2em;
+  border-radius: 0.2em;
+  padding: 0.2em 0.5em;
+  color: rgb(37, 36, 34);
+  background-color: rgb(204, 197, 185);
+  border: 1px solid rgb(235, 94, 40, 0);
+  :focus {
+    border: 1px solid rgb(235, 94, 40);
+    outline: none;
+  }
 `;
 
 export const Label = styled.label`
@@ -32,4 +51,15 @@ export const Button = styled.button`
   :active {
     box-shadow: 0 0 0;
   }
+`;
+
+export const Textarea = styled.textarea`
+  resize: none;
+  height: 10em;
+  border-radius: 0.2em;
+  padding: 0.2em 0.5em;
+  color: rgb(37, 36, 34);
+  background-color: rgb(204, 197, 185);
+  border: 1px solid rgb(235, 94, 40, 0);
+  
 `;
