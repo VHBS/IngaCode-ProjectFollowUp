@@ -98,6 +98,7 @@ export default function NewTask({
         <Label htmlFor="task-name">
           <span>Task Name:</span>
           <Input
+            autoComplete="off"
             id="task-name"
             type="text"
             onChange={({ target: { value } }) => setNewTaskName(value)}
@@ -108,6 +109,7 @@ export default function NewTask({
         <Label htmlFor="task-description">
           <span>Task Description:</span>
           <Textarea
+            autoComplete="off"
             id="task-description"
             onChange={({ target: { value } }) => setNewTaskDescription(value)}
             value={newTaskDescription}

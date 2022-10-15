@@ -26,6 +26,7 @@ export default function Login(): JSX.Element {
             User Name:
           </span>
           <Input
+            autoComplete="off"
             id="userName"
             type="text"
             onChange={({ target: { value } }) => setUserName(value)}

@@ -76,6 +76,7 @@ export default function Projects(): JSX.Element {
           </span>
           <Input
             id="filter-project"
+            autoComplete="off"
             type="text"
             onChange={({ target: { value } }) => setFilterProject(value.toLowerCase())}
           />
@@ -86,6 +87,7 @@ export default function Projects(): JSX.Element {
           </span>
           <Input
             id="filter-task-by-name"
+            autoComplete="off"
             type="text"
             onChange={({ target: { value } }) => setFilterTaskByName(value.toLowerCase())}
           />

@@ -47,6 +47,7 @@ export default function NewProject({
             📋 Project Name:
           </span>
           <Input
+            autoComplete="off"
             id="name"
             type="text"
             onChange={({ target: { value } }) => setProjectName(value)}

@@ -62,6 +62,7 @@ export default function Tasks(): JSX.Element {
         <Label htmlFor="filter-task-by-name">
           <span>Filter by task name:</span>
           <Input
+            autoComplete="off"
             id="filter-task-by-name"
             type="text"
             onChange={({ target: { value } }) => setFilterTaskByName(value.toLowerCase())}
@@ -71,6 +72,7 @@ export default function Tasks(): JSX.Element {
         <Label htmlFor="filter-task-by-project-name">
           <span>Filter by project name:</span>
           <Input
+            autoComplete="off"
             id="filter-task-by-project-name"
             type="text"
             onChange={({ target: { value } }) => setFilterTaskByProjectName(value.toLowerCase())}
@@ -80,6 +82,7 @@ export default function Tasks(): JSX.Element {
         <Label htmlFor="filter-task-by-collaborator-name">
           <span>Filter by collaborator name:</span>
           <Input
+            autoComplete="off"
             id="filter-task-by-collaborator-name"
             type="text"
             onChange={({ target: { value } }) => setFilterTaskByCollaboratorName(value
