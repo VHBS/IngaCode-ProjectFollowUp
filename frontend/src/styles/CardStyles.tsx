@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const CardProjectComponent = styled.div`
+export const CardComponent = styled.div`
   background-color: rgb(64, 61, 57, 0.7);
   backdrop-filter: blur(16px);
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
@@ -21,7 +21,7 @@ export const CardProjectComponent = styled.div`
     border: 1px solid rgb(235, 94, 40);
   }
 
-  .project-details {
+  .details-button {
     font-size: small;
     text-transform: none;
     margin: auto;
@@ -38,7 +38,7 @@ export const CardProjectComponent = styled.div`
   }
 `;
 
-export const CardProjectName = styled.h3`
+export const CardName = styled.h3`
   padding-bottom: 1em;
   width: 100%;
   white-space: nowrap;
@@ -61,7 +61,7 @@ export const StyledLink = styled(Link)`
   }
 `;
 
-export const ProjectCardTasks = styled.div`
+export const CardAssociations = styled.div`
   padding-top: 1em;
   padding-bottom: 1em;
   min-height: 125px;
@@ -74,7 +74,7 @@ export const ProjectCardTasks = styled.div`
     font-size: small;
   }
 
-  .task-name {
+  .links {
     text-transform: none;
     margin-left: 4em;
     margin-top: 0.5em;
@@ -83,7 +83,7 @@ export const ProjectCardTasks = styled.div`
   }
 `;
 
-export const ProjectCardCollaborators = styled.div`
+export const CardCollaborators = styled.div`
   height: 140px;
   padding-top: 1em;
   border-bottom: 1px solid rgb(255, 252, 242,0.2);
@@ -97,6 +97,5 @@ export const ProjectCardCollaborators = styled.div`
     margin-left: 4em;
     margin-top: 0.5em;
     padding: 0.2em 0.5em;
-
   }
 `;

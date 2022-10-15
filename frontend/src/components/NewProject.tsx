@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { AuthContextType } from '../@types/authContext';
 import useAuth from '../hooks/useAuth';
 import { Button, Input, Label } from '../styles/default';
-import { NewProjectComponent, NewProjectContainer } from '../styles/NewProject';
+import { NewProjectComponent, NewProjectContainer, NewProjectTitle } from '../styles/NewProject';
 import { handleFetchCreateProject } from '../utils/api';
 
 type PropType = {
@@ -38,9 +38,9 @@ export default function NewProject({
   return (
     <NewProjectComponent>
       <NewProjectContainer>
-        <h1>
+        <NewProjectTitle>
           New Project
-        </h1>
+        </NewProjectTitle>
         { showMessageError && <p>Insert a project name! </p>}
         <Label htmlFor="name">
           <span>

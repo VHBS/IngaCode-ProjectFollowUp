@@ -2,8 +2,8 @@ import React from 'react';
 
 import IProject from '../@types/project';
 import {
-  CardProjectComponent, CardProjectName, ProjectCardCollaborators, ProjectCardTasks, StyledLink,
-} from '../styles/CardProject';
+  CardComponent, CardName, CardCollaborators, CardAssociations, StyledLink,
+} from '../styles/CardStyles';
 
 type PropType = {
   props: { project: IProject }
@@ -14,26 +14,26 @@ export default function CardProject({
   { project: { name, id, tasks } },
 }: PropType): JSX.Element {
   return (
-    <CardProjectComponent>
+    <CardComponent>
       <StyledLink to={`/projects/${id}`}>
-        <CardProjectName>
+        <CardName>
           📋
           {' '}
           {name}
-        </CardProjectName>
+        </CardName>
       </StyledLink>
 
-      <ProjectCardTasks>
+      <CardAssociations>
         {tasks && tasks.length > 0 ? <h5>📝 Last tasks</h5> : <h6>📄 No tasks in this project</h6>}
         {tasks?.sort((a, b) => new Date(b.createdAt).getTime()
         - new Date(a.createdAt).getTime()).slice(0, 4).map((task) => (
-          <StyledLink to={`/tasks/${task.id}`} className="task-name" key={task.id}>
+          <StyledLink to={`/tasks/${task.id}`} className="links" key={task.id}>
             {task.name}
           </StyledLink>
         ))}
-      </ProjectCardTasks>
+      </CardAssociations>
 
-      <ProjectCardCollaborators>
+      <CardCollaborators>
         {tasks?.map((task) => task.collaborators?.some(
           (collaborator) => collaborator.name,
         )).some((result) => result) ? (
@@ -45,11 +45,11 @@ export default function CardProject({
             {collaborator.name}
           </p>
         )))}
-      </ProjectCardCollaborators>
+      </CardCollaborators>
 
-      <StyledLink className="project-details" to={`/projects/${id}`}>
+      <StyledLink className="details-button" to={`/projects/${id}`}>
         Details
       </StyledLink>
-    </CardProjectComponent>
+    </CardComponent>
   );
 }

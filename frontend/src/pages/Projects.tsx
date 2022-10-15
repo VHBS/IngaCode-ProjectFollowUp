@@ -8,8 +8,8 @@ import NewProject from '../components/NewProject';
 import useAuth from '../hooks/useAuth';
 import { Button, Input, Label } from '../styles/default';
 import {
-  FilterContainer, ProjectPage, ProjectsComponent, TitlePage,
-} from '../styles/Projects';
+  FilterContainer, ProjectsPage, TitlePage, CardsContainer,
+} from '../styles/PageCards';
 import { handleFetchGetAllProjects } from '../utils/api';
 
 export default function Projects(): JSX.Element {
@@ -38,7 +38,7 @@ export default function Projects(): JSX.Element {
   }, []);
 
   return (
-    <ProjectPage>
+    <ProjectsPage>
       <Navbar />
       <TitlePage>
         <h1>Projects</h1>
@@ -103,7 +103,7 @@ export default function Projects(): JSX.Element {
         />
       </label> */}
 
-      <ProjectsComponent>
+      <CardsContainer>
         { projects?.filter((project) => project.name
           .toLowerCase().includes(filterProject))
           .filter((project) => {
@@ -123,8 +123,8 @@ export default function Projects(): JSX.Element {
           .map((project) => (
             <CardProject key={project.id} props={{ project }} />
           ))}
-      </ProjectsComponent>
+      </CardsContainer>
 
-    </ProjectPage>
+    </ProjectsPage>
   );
 }

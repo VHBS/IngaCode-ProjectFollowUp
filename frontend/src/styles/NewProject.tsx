@@ -1,10 +1,16 @@
 import styled from 'styled-components';
 
 export const NewProjectComponent = styled.div`
-  color: rgb(204, 197, 185);
   display: flex;
   margin-bottom: 0.5em;
   
+`;
+
+export const NewProjectTitle = styled.h2`
+  font-size: xx-large;
+  text-align: center;
+  padding: 1em;
+  color: rgb(204, 197, 185);
 `;
 
 export const NewProjectContainer = styled.div`
@@ -17,11 +23,6 @@ export const NewProjectContainer = styled.div`
   justify-content: center;
   margin: auto;
   background-color: rgb(64, 61, 57, 0.7);
-  
-  h1 {
-  color: rgb(204, 197, 185);
-
-  }
 
   .title-container-buttons {
     display: flex;
