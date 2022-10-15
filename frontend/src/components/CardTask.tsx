@@ -1,7 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import ITask from '../@types/task';
+import {
+  CardName, CardCollaborators, StyledLink,
+} from '../styles/CardStyles';
+import { CardAssociationsTask, CardComponentTask, CardDescriptionTask } from '../styles/CardTask';
 
 type PropType = {
   props: {
@@ -16,33 +19,42 @@ export default function CardTask({ props: { task, showProjectName } }: PropType)
   } = task;
 
   return (
-    <div>
-      <h2>
-        📝
-        {name}
-      </h2>
+    <CardComponentTask>
+      <StyledLink to={`/tasks/${id}`}>
+        <CardName>
+          📝
+          {name}
+        </CardName>
+      </StyledLink>
       {showProjectName && (
-      <h3>
-        📋
-        {project?.name}
-      </h3>
+        <CardAssociationsTask>
+          <h5>📋 Project</h5>
+          <StyledLink to={`/projects/${id}`} className="links">
+            {project?.name}
+          </StyledLink>
+        </CardAssociationsTask>
       )}
-      <p>
-        {description.slice(0, 100)}
-        {task.description.length > 100 && '...'}
-      </p>
-      <div>
-        {collaborators && collaborators[0] ? <h3>🙎‍♀️💻🙎 Collaborators</h3>
-          : <h3>💻No collaborators in this task</h3>}
-        {collaborators?.map((collaborator) => (
-          <h6 key={collaborator.id}>
+      <CardDescriptionTask>
+        <h5>
+          ✏️ Description
+        </h5>
+        <p>
+          {description.slice(0, 100)}
+          {task.description.length > 99 && '...'}
+        </p>
+      </CardDescriptionTask>
+      <CardCollaborators>
+        {collaborators && collaborators[0] ? <h5>🙎‍♀️💻🙎 Collaborators</h5>
+          : <h5>💻No collaborators in this task</h5>}
+        {collaborators?.slice(0, 5).map((collaborator) => (
+          <p key={collaborator.id}>
             {collaborator.name}
-          </h6>
+          </p>
         ))}
-      </div>
-      <Link to={`/tasks/${id}`}>
-        Task Details
-      </Link>
-    </div>
+      </CardCollaborators>
+      <StyledLink className="details-button" to={`/tasks/${id}`}>
+        Details
+      </StyledLink>
+    </CardComponentTask>
   );
 }

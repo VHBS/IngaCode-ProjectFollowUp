@@ -10,7 +10,7 @@ export const NavBarComponent = styled.header`
   align-items: center;
   color: rgb(255, 252, 242);
   backdrop-filter: blur(0.3em);
-  z-index: 2;
+  z-index: 10;
   h5{
     margin-left: 1em;
   }
