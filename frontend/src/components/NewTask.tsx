@@ -3,6 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { AuthContextType } from '../@types/authContext';
 import IProject from '../@types/project';
 import useAuth from '../hooks/useAuth';
+import {
+  Button, Input, Label, Select, Textarea,
+} from '../styles/default';
+import { NewItemComponent, NewItemContainer, NewProjectTitle } from '../styles/NewRegistry';
 import { handleFetchCreateTask, handleFetchGetAllProjects } from '../utils/api';
 
 type PropType = {
@@ -68,51 +72,64 @@ export default function NewTask({
   }, []);
 
   return (
-    <div>
-      <h1>NewTask</h1>
-      {showMessageError && <p>{messageError}</p>}
-      <label htmlFor="task-name">
-        <span>Task Name:</span>
-        <input
-          id="task-name"
-          type="text"
-          onChange={({ target: { value } }) => setNewTaskName(value)}
-          value={newTaskName}
-        />
-      </label>
-      <br />
-      <label htmlFor="select-project-name">
-        <span>Project Name:</span>
-        <select
-          id="select-project-name"
-          onChange={({ target: { value } }) => setNewTaskProjectId(value)}
-        >
-          { projects?.map((project) => (
-            <option
-              key={project.id}
-              value={project.id}
-            >
-              {project.name}
-            </option>
-          ))}
-        </select>
-      </label>
-      <br />
+    <NewItemComponent>
+      <NewItemContainer>
+        <NewProjectTitle>
+          NewTask
+        </NewProjectTitle>
+        {showMessageError && <p>{messageError}</p>}
+        <Label htmlFor="select-project-name">
+          <span>Project Name:</span>
+          <Select
+            id="select-project-name"
+            onChange={({ target: { value } }) => setNewTaskProjectId(value)}
+          >
+            { projects?.map((project) => (
+              <option
+                key={project.id}
+                value={project.id}
+              >
+                {project.name}
+              </option>
+            ))}
+          </Select>
+        </Label>
 
-      <label htmlFor="task-description">
-        <span>Task Description:</span>
-        <textarea
-          id="task-description"
-          onChange={({ target: { value } }) => setNewTaskDescription(value)}
-          value={newTaskDescription}
-        />
-      </label>
-      <button type="button" onClick={handleCreateTask}>
-        Create Task
-      </button>
-      <button type="button" onClick={() => setShowModalNewTask(false)}>
-        Close
-      </button>
-    </div>
+        <Label htmlFor="task-name">
+          <span>Task Name:</span>
+          <Input
+            id="task-name"
+            type="text"
+            onChange={({ target: { value } }) => setNewTaskName(value)}
+            value={newTaskName}
+          />
+        </Label>
+
+        <Label htmlFor="task-description">
+          <span>Task Description:</span>
+          <Textarea
+            id="task-description"
+            onChange={({ target: { value } }) => setNewTaskDescription(value)}
+            value={newTaskDescription}
+          />
+        </Label>
+        <div className="title-container-buttons">
+
+          <Button
+            type="button"
+            onClick={handleCreateTask}
+          >
+            Create Task
+          </Button>
+          <Button
+            type="button"
+            onClick={() => setShowModalNewTask(false)}
+          >
+            Close
+          </Button>
+        </div>
+      </NewItemContainer>
+
+    </NewItemComponent>
   );
 }
