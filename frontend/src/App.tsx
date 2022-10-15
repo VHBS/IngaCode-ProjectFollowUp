@@ -5,8 +5,8 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import ProjectDetails from './pages/ProjectDetails';
 import Projects from './pages/Projects';
-import Task from './pages/Task';
 import TaskDetails from './pages/TaskDetails';
+import Tasks from './pages/Tasks';
 import PrivateRouter from './router/PrivateRouter';
 
 export default function App(): JSX.Element {
@@ -17,7 +17,7 @@ export default function App(): JSX.Element {
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:id" element={<ProjectDetails />} />
-        <Route path="/tasks" element={<Task />} />
+        <Route path="/tasks" element={<Tasks />} />
         <Route path="/tasks/:id" element={<TaskDetails />} />
       </Route>
     </Routes>

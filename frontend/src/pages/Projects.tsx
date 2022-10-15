@@ -6,14 +6,19 @@ import CardProject from '../components/CardProject';
 import Navbar from '../components/Navbar';
 import NewProject from '../components/NewProject';
 import useAuth from '../hooks/useAuth';
+import { Button, Input, Label } from '../styles/default';
+import {
+  FilterContainer, ProjectsPage, TitlePage, CardsContainer,
+} from '../styles/PageCards';
 import { handleFetchGetAllProjects } from '../utils/api';
 
 export default function Projects(): JSX.Element {
   const [showModalNewProject, setShowModalNewProject] = useState<boolean>(false);
+  const [showFilters, setShowFilters] = useState<boolean>(false);
   const [projects, setProjects] = useState<IProject[] | null>(null);
   const [filterProject, setFilterProject] = useState<string>('');
   const [filterTaskByName, setFilterTaskByName] = useState<string>('');
-  const [filterTaskByCollaboratorName, setFilterTaskByCollaboratorName] = useState<string>('');
+  // const [filterTaskByCollaboratorName, setFilterTaskByCollaboratorName] = useState<string>('');
   const { userData, setUserData } = useAuth() as AuthContextType;
 
   const handleLoadProjects = async () => {
@@ -33,14 +38,27 @@ export default function Projects(): JSX.Element {
   }, []);
 
   return (
-    <div>
+    <ProjectsPage>
       <Navbar />
-      <button
-        type="button"
-        onClick={() => setShowModalNewProject(!showModalNewProject)}
-      >
-        New Project
-      </button>
+      <TitlePage>
+        <h1>Projects</h1>
+        <div className="title-container-buttons">
+          <Button
+            type="button"
+            onClick={() => setShowModalNewProject(!showModalNewProject)}
+          >
+            New Project
+          </Button>
+
+          <Button
+            type="button"
+            onClick={() => setShowFilters(!showFilters)}
+          >
+            Filters
+          </Button>
+        </div>
+      </TitlePage>
+
       { showModalNewProject
       && (
         <NewProject
@@ -50,27 +68,30 @@ export default function Projects(): JSX.Element {
           }}
         />
       )}
-
-      <h1>Projects</h1>
-
-      <label htmlFor="filter-project">
-        Filter by project name:
-        <input
-          id="filter-project"
-          type="text"
-          onChange={({ target: { value } }) => setFilterProject(value.toLowerCase())}
-        />
-      </label>
-
-      <br />
-      <label htmlFor="filter-task-by-name">
-        Filter by task name:
-        <input
-          id="filter-task-by-name"
-          type="text"
-          onChange={({ target: { value } }) => setFilterTaskByName(value.toLowerCase())}
-        />
-      </label>
+      { showFilters && (
+      <FilterContainer>
+        <Label htmlFor="filter-project">
+          <span>
+            📋 Filter by project name:
+          </span>
+          <Input
+            id="filter-project"
+            type="text"
+            onChange={({ target: { value } }) => setFilterProject(value.toLowerCase())}
+          />
+        </Label>
+        <Label htmlFor="filter-task-by-name">
+          <span>
+            📝 Filter by project name:
+          </span>
+          <Input
+            id="filter-task-by-name"
+            type="text"
+            onChange={({ target: { value } }) => setFilterTaskByName(value.toLowerCase())}
+          />
+        </Label>
+      </FilterContainer>
+      )}
 
       {/* <br />
       <label htmlFor="filter-task-by-collaborator-name">
@@ -82,14 +103,15 @@ export default function Projects(): JSX.Element {
         />
       </label> */}
 
-      { projects?.filter((project) => project.name
-        .toLowerCase().includes(filterProject))
-        .filter((project) => {
-          if (filterTaskByName === ''
+      <CardsContainer>
+        { projects?.filter((project) => project.name
+          .toLowerCase().includes(filterProject))
+          .filter((project) => {
+            if (filterTaskByName === ''
           && project.tasks?.length === 0) return true;
-          return project.tasks?.some((task) => task.name.toLowerCase()
-            .includes(filterTaskByName));
-        })
+            return project.tasks?.some((task) => task.name.toLowerCase()
+              .includes(filterTaskByName));
+          })
         // .filter(({ tasks }) => tasks?.some((task) => {
         //   // console.log(task);
         //   // return true;
@@ -98,9 +120,11 @@ export default function Projects(): JSX.Element {
         //   return task.collaborators?.some((collaborator) => collaborator.name.toLowerCase()
         //     .includes(filterTaskByCollaboratorName));
         // }))
-        .map((project) => (
-          <CardProject key={project.id} props={{ project }} />
-        ))}
-    </div>
+          .map((project) => (
+            <CardProject key={project.id} props={{ project }} />
+          ))}
+      </CardsContainer>
+
+    </ProjectsPage>
   );
 }
