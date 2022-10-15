@@ -13,6 +13,8 @@ export const NewProjectTitle = styled.h2`
 `;
 
 export const NewItemContainer = styled.div`
+  backdrop-filter: blur(16px);
+
   border-radius: 0.2rem;
   padding: 1rem;
   width: 70%;
@@ -20,7 +22,7 @@ export const NewItemContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: auto;
+  margin: 0 auto;
   background-color: rgb(64, 61, 57, 0.7);
 
   .title-container-buttons {
