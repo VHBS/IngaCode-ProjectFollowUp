@@ -12,14 +12,14 @@ export const NavBarComponent = styled.header`
   backdrop-filter: blur(0.3em);
   z-index: 10;
   h5{
-    margin-left: 1em;
+    margin-left: 1rem;
   }
   `;
 
 export const ButtonsContainer = styled.div`
   display: flex;
   button {
-    margin: 0.5em;
+    margin: 1rem;
   }
   
 `;

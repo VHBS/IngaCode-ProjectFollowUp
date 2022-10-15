@@ -12,15 +12,15 @@ export const LoginPage = styled.div`
 
 export const ContainerInput = styled.div`
   background-color: rgba(37, 36, 34, 0.74);
-  border-radius: 0.2em;
-  width: 20em;
-  height: 15em;
+  border-radius: 0.2rem;
+  width: 20rem;
+  height: 15rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
   button { 
-    margin-top: 2em
+    margin-top: 2rem
   }
 `;

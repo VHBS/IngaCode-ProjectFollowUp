@@ -5,8 +5,8 @@ export const CardComponent = styled.div`
   background-color: rgb(64, 61, 57, 0.7);
   backdrop-filter: blur(16px);
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  padding: 1em;
-  border-radius: 0.2em;
+  padding: 1rem;
+  border-radius: 0.2rem;
   transition: transform 100ms ease-in-out;
   height: 400px;
   display: flex;
@@ -25,21 +25,21 @@ export const CardComponent = styled.div`
     font-size: small;
     text-transform: none;
     margin: auto;
-    margin-top: 1.5em;
-    padding: 0.2em 0.5em;
+    margin-top: 1.5rem;
+    padding: 0.2rem 0.5rem;
 
     :hover {
       color: rgb(255, 252, 242);
       background-color: rgb(235, 94, 40);
       box-shadow: 0 0 10px rgba(235, 94, 40);
       text-decoration: none;
-      border-radius: 0.2em;
+      border-radius: 0.2rem;
     }
   }
 `;
 
 export const CardName = styled.h3`
-  padding-bottom: 1em;
+  padding-bottom: 1rem;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
@@ -62,12 +62,12 @@ export const StyledLink = styled(Link)`
 `;
 
 export const CardAssociations = styled.div`
-  padding-top: 1em;
-  padding-bottom: 1em;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   min-height: 125px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-itrems: flex-start;
   border-bottom: 1px solid rgb(255, 252, 242,0.2);
 
   h5 {
@@ -76,16 +76,16 @@ export const CardAssociations = styled.div`
 
   .links {
     text-transform: none;
-    margin-left: 4em;
-    margin-top: 0.5em;
+    margin-left: 4rem;
+    margin-top: 0.5rem;
     font-size: small;
-    padding: 0.2em 0.5em;
+    padding: 0.2rem 0.5rem;
   }
 `;
 
 export const CardCollaborators = styled.div`
   height: 140px;
-  padding-top: 1em;
+  padding-top: 1rem;
   border-bottom: 1px solid rgb(255, 252, 242,0.2);
 
   h5 {
@@ -94,8 +94,8 @@ export const CardCollaborators = styled.div`
 
   p {
     font-size: small;
-    margin-left: 4em;
-    margin-top: 0.5em;
-    padding: 0.2em 0.5em;
+    margin-left: 4rem;
+    margin-top: 0.5rem;
+    padding: 0.2rem 0.5rem;
   }
 `;

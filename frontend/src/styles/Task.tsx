@@ -8,9 +8,8 @@ export const TasksPage = styled.div`
   background-position:center;
   background-color: rgb(255, 252, 242);
   min-height: 100vh;
-  padding-bottom: 10em;
+  padding-bottom: 10rem;
   h1 {
-    margin-block: 0.5em;
-    color: rgb(37, 36, 34);
+    margin-block: 0.5rem;
   }
 `;
