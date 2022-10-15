@@ -8,6 +8,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: Open-Sans, Helvetica, Sans-Serif;
   }
 
+  body {
+    overflow: overlay;
+  }
+
   ol, ul {
     list-style: none;
   }
@@ -26,7 +30,7 @@ const GlobalStyle = createGlobalStyle`
   }
   
   body::-webkit-scrollbar-track {
-    background: rgba(37, 36, 34, 0.74);
+    background: rgba(37, 36, 34, 0);
   }
 
 `;
