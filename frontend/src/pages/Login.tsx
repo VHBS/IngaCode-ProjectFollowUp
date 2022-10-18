@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { AuthContextType } from '../@types/authContext';
+import CopyrightImage from '../components/CopyrightImage';
 import useAuth from '../hooks/useAuth';
 import { Button, Input, Label } from '../styles/default';
 import { ContainerInput, LoginPage } from '../styles/Login';
@@ -52,6 +53,7 @@ export default function Login(): JSX.Element {
 
         </Button>
       </ContainerInput>
+      <CopyrightImage author="@szmigieldesign" />
     </LoginPage>
   );
 }
