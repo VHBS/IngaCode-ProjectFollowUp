@@ -21,8 +21,8 @@ export const NewItemComponent = styled.div<{ showModalNewItem: boolean}>`
     }
     return `
       max-height: 900px;
-      transition: max-height 0.3s ease-in-out;
-      animation: fadein 0.5s;
+      transition: max-height 0.2s ease-in-out;
+      animation: fadein 0.3s;
       @keyframes fadein {
           from { opacity: 0; }
           to   { opacity: 1; }
@@ -68,7 +68,7 @@ export const NewItemContainer = styled.div`
   }
 
   label {
-    border-bottom: 1px solid rgb(255, 252, 242,0.2);
+    border-bottom: 1px solid rgb(255, 252, 242,0.05);
     padding-block: 1rem;
   };
 

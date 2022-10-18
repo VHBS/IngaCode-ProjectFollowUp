@@ -45,7 +45,6 @@ export const CardName = styled.h3`
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: justify;
-  border-bottom: 1px solid rgb(255, 252, 242,0.2);
 `;
 
 export const StyledLink = styled(Link)`
@@ -73,7 +72,7 @@ export const CardAssociations = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border-bottom: 1px solid rgb(255, 252, 242,0.2);
+  border-block: 1px solid rgb(255, 252, 242,0.05);
 
   h5 {
     font-size: small;
@@ -91,7 +90,7 @@ export const CardAssociations = styled.div`
 export const CardCollaborators = styled.div`
   height: 140px;
   padding-top: 1rem;
-  border-bottom: 1px solid rgb(255, 252, 242,0.2);
+  border-bottom: 1px solid rgb(255, 252, 242,0.05);
 
   h5 {
     font-size: small;

@@ -15,9 +15,9 @@ export const FilterComponent = styled.div<{showFilters: boolean}>`
     if (!showFilters) {
       return `
       max-height: 0;
-      transition: max-height 0.3s ease-in-out;
+      transition: max-height 0.2s ease-in-out;
       pointer-events: none;
-      animation: fadeOut 1s;
+      animation: fadeOut 0.7s;
       @keyframes fadeOut {
           from { opacity: 1; }
           to   { opacity: 0; }
@@ -26,8 +26,8 @@ export const FilterComponent = styled.div<{showFilters: boolean}>`
     }
     return `
       max-height: 900px;
-      transition: max-height 0.3s ease-in-out;
-      animation: fadein 0.7s;
+      transition: max-height 0.2s ease-in-out;
+      animation: fadein 0.3s;
       @keyframes fadein {
           from { opacity: 0; }
           to   { opacity: 1; }
@@ -55,7 +55,7 @@ export const FilterContainer = styled.div`
   }
 
   label {
-    border-bottom: 1px solid rgb(255, 252, 242,0.2);
+    border-bottom: 1px solid rgb(255, 252, 242,0.05);
     padding-block: 1rem;
   };
 

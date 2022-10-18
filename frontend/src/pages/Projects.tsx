@@ -72,7 +72,7 @@ export default function Projects(): JSX.Element {
         <FilterContainer>
           <Label htmlFor="filter-project">
             <span>
-              📋 Filter by project name:
+              🔎📋 Filter by project name:
             </span>
             <Input
               id="filter-project"
@@ -83,7 +83,7 @@ export default function Projects(): JSX.Element {
           </Label>
           <Label htmlFor="filter-task-by-name">
             <span>
-              📝 Filter by project name:
+              🔎📝 Filter by project name:
             </span>
             <Input
               id="filter-task-by-name"

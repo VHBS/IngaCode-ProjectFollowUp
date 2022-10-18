@@ -8,7 +8,7 @@ export default function Home(): JSX.Element {
   return (
     <HomePage>
       <Navbar />
-      <CopyrightImage author="sebinthomas" />
+      <CopyrightImage author="@sebinthomas" />
     </HomePage>
   );
 }

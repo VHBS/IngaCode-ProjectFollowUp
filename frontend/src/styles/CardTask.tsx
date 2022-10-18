@@ -7,13 +7,15 @@ export const CardComponentTask = styled(CardComponent)`
 `;
 
 export const CardAssociationsTask = styled(CardAssociations)`
+  border-block: 1px solid rgb(255, 252, 242,0.05);
+
   min-height: 3.7rem;
 `;
 
 export const CardDescriptionTask = styled.div`
   min-height: 6.2rem;
   padding-block: 1rem;
-  border-bottom: 1px solid rgb(255, 252, 242,0.2);
+  border-bottom: 1px solid rgb(255, 252, 242,0.05);
 
   p {
     padding-top: 0.5rem;
