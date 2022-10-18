@@ -47,15 +47,18 @@ export const Button = styled.button`
   border-radius: 0.2rem;
   background-color: rgba(255, 255, 255, 0);
   color: rgb(204, 197, 185);
+  transition: transform 100ms ease-in-out;
 
   :hover {
     color: rgb(255, 252, 242);
     background-color: rgb(235, 94, 40);
     box-shadow: 0 0 10px rgba(235, 94, 40);
+    transform: scale(1.05);
   }
 
   :active {
     box-shadow: 0 0 0;
+    transform: scale(0.95);
   }
 `;
 
