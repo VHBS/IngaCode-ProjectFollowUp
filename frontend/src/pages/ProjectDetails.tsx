@@ -12,9 +12,8 @@ import { handleFetchDeleteProject, handleFetchGetOneProject } from '../utils/api
 
 export default function ProjectDetails(): JSX.Element {
   const [project, setProject] = useState<IProject>();
-
   const [showModalUpdateProject, setShowModalUpdateProject] = useState<boolean>(false);
-  const [showModalNewTask, setShowModalNewTask] = useState<boolean>(false);
+  const [showModalNewItem, setShowModalNewItem] = useState<boolean>(false);
   const { userData, setUserData } = useAuth() as AuthContextType;
   const { id } = useParams();
   const navigate = useNavigate();
@@ -48,10 +47,11 @@ export default function ProjectDetails(): JSX.Element {
       }}
       />
       )}
-      {showModalNewTask && (
+      {showModalNewItem && (
       <NewTask props={{
-        setShowModalNewTask,
-        handleLoadTasks: handleLoadProject,
+        showModalNewItem,
+        setShowModalNewItem,
+        handleReload: handleLoadProject,
       }}
       />
       )}
@@ -70,7 +70,7 @@ export default function ProjectDetails(): JSX.Element {
       {project?.tasks && !project?.tasks[0] && (
       <h3>No tasks in this project</h3>
       )}
-      <button type="button" onClick={() => setShowModalNewTask(!showModalNewTask)}>
+      <button type="button" onClick={() => setShowModalNewItem(!showModalNewItem)}>
         Create Task
       </button>
       {project?.tasks?.map((task) => (
