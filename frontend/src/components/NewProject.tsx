@@ -37,7 +37,7 @@ export default function NewProject({
   };
 
   return (
-    <NewItemComponent showModalNewItem={showModalNewItem}>
+    <NewItemComponent showModal={showModalNewItem}>
       <NewItemContainer>
         <NewProjectTitle>
           New Project
@@ -69,7 +69,6 @@ export default function NewProject({
           </Button>
         </div>
       </NewItemContainer>
-
     </NewItemComponent>
   );
 }

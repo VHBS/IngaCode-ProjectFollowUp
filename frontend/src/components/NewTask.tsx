@@ -74,7 +74,7 @@ export default function NewTask({
   }, []);
 
   return (
-    <NewItemComponent showModalNewItem={showModalNewItem}>
+    <NewItemComponent showModal={showModalNewItem}>
       <NewItemContainer>
         <NewProjectTitle>
           New Task
