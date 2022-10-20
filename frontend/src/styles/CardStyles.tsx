@@ -72,9 +72,10 @@ export const CardAssociations = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border-block: 1px solid rgb(255, 252, 242,0.05);
+  border-top: 1px solid rgb(255, 252, 242,0.05);
 
   h5 {
+    font-weight: 800;
     font-size: small;
   }
 
@@ -94,6 +95,7 @@ export const CardCollaborators = styled.div`
 
   h5 {
     font-size: small;
+    font-weight: 800;
   }
 
   p {

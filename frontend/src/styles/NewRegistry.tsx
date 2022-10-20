@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-export const NewItemComponent = styled.div<{ showModalNewItem: boolean}>`
+export const NewItemComponent = styled.div<{ showModal: boolean }>`
   margin-bottom: 0.5rem;
   overflow:hidden;
   color: rgb(204, 197, 185);
   
   
-  ${({ showModalNewItem }) => {
-    if (!showModalNewItem) {
+  ${({ showModal }) => {
+    if (!showModal) {
       return `
       max-height: 0;
       transition: max-height 0.2s ease-in-out;

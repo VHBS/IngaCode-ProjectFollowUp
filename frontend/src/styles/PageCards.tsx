@@ -72,16 +72,16 @@ export const TitlePage = styled.div`
   width: 70%;
   max-width: 20rem;
   margin-inline: auto;
-  
 
   h1 {
-    padding: 0.2rem 0.5rem;
     border-radius: 0.2rem;
     color: rgb(204, 197, 185);
     background-color: rgb(64, 61, 57, 0.7);
     margin-block: 0.5rem;
     backdrop-filter: blur(16px);
-
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
   }
 
   .title-container-buttons {
@@ -90,8 +90,7 @@ export const TitlePage = styled.div`
     justify-content: space-evenly;
     width: 100%;
     background-color: rgb(64, 61, 57, 0.7);
-  backdrop-filter: blur(16px);
-
+    backdrop-filter: blur(16px);
     border-radius: 0.2rem;
     margin-bottom: 0.5rem;
     display: flex;
@@ -107,5 +106,5 @@ export const CardsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1rem;
-  padding: 1rem;
+  padding: 0 1rem 3rem;
 `;

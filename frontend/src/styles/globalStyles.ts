@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     overflow: overlay;
+    min-width: 401px;
   }
 
   ol, ul {
