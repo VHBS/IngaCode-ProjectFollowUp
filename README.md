@@ -22,38 +22,29 @@ In this application it is possible to follow the different projects registered, 
 
 Before starting, make sure you have the following requirements:
 - Preferably you are using a Linux system.
-- It has `node` installed.
+- It has `node` and `docker compose` installed.
 
 ## 🚀 Installing the Project
 To install the project, follow these steps:
 - Check that ports `3000`, `3001` and `3306` are not being used.
 - Clone this repository:
-	- SSH ou HTTPS:
+	- SSH or HTTPS:
 ```
 git@github.com:VHBS/IngaCode-ProjectFollowUp.git
-```	
+```
+
 ```
 https://github.com/VHBS/IngaCode-ProjectFollowUp.git
 ```
 
 - Go to the cloned directory:
 ```
-cd IngaCode-ProjectFollowUp/backend
+cd IngaCode-ProjectFollowUp/
 ```
 
 -   Use the command:
 ``` 
-npm start
-```
-
-- Go to the cloned directory:
-```
-cd IngaCode-ProjectFollowUp/frontend
-```
-
--   Use the command:
-``` 
-npm start
+docker compose up -d
 ```
 
 ## ☕Using the Project
