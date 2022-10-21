@@ -3,16 +3,19 @@ import React, { useEffect, useState } from 'react';
 import { AuthContextType } from '../@types/authContext';
 import ITask from '../@types/task';
 import CardTask from '../components/CardTask';
+import CopyrightImage from '../components/CopyrightImage';
 import Navbar from '../components/Navbar';
 import NewTask from '../components/NewTask';
 import useAuth from '../hooks/useAuth';
 import { Button, Input, Label } from '../styles/default';
-import { CardsContainer, FilterContainer, TitlePage } from '../styles/PageCards';
+import {
+  CardsContainer, FilterComponent, FilterContainer, TitlePage,
+} from '../styles/PageCards';
 import { TasksPage } from '../styles/Task';
 import { handleFetchGetAllTasks } from '../utils/api';
 
 export default function Tasks(): JSX.Element {
-  const [showModalNewTask, setShowModalNewTask] = useState<boolean>(false);
+  const [showModalNewItem, setShowModalNewItem] = useState<boolean>(false);
   const [tasks, setTasks] = useState<ITask[] | null>(null);
   const [showFilters, setShowFilters] = useState<boolean>(false);
   const [filterTaskByName, setFilterTaskByName] = useState<string>('');
@@ -43,7 +46,7 @@ export default function Tasks(): JSX.Element {
         <h1>Tasks</h1>
         <div className="title-container-buttons">
 
-          <Button type="button" onClick={() => setShowModalNewTask(!showModalNewTask)}>
+          <Button type="button" onClick={() => setShowModalNewItem(!showModalNewItem)}>
             New Task
           </Button>
           <Button
@@ -55,39 +58,49 @@ export default function Tasks(): JSX.Element {
         </div>
 
       </TitlePage>
-      {showModalNewTask && <NewTask props={{ handleLoadTasks, setShowModalNewTask }} />}
+      <NewTask props={{
+        handleReload: handleLoadTasks,
+        setShowModalNewItem,
+        showModalNewItem,
+      }}
+      />
 
-      {showFilters && (
-      <FilterContainer>
-        <Label htmlFor="filter-task-by-name">
-          <span>Filter by task name:</span>
-          <Input
-            id="filter-task-by-name"
-            type="text"
-            onChange={({ target: { value } }) => setFilterTaskByName(value.toLowerCase())}
-          />
-        </Label>
+      <FilterComponent showFilters={showFilters}>
 
-        <Label htmlFor="filter-task-by-project-name">
-          <span>Filter by project name:</span>
-          <Input
-            id="filter-task-by-project-name"
-            type="text"
-            onChange={({ target: { value } }) => setFilterTaskByProjectName(value.toLowerCase())}
-          />
-        </Label>
+        <FilterContainer>
+          <Label htmlFor="filter-task-by-name">
+            <span>Filter by task name:</span>
+            <Input
+              autoComplete="off"
+              id="filter-task-by-name"
+              type="text"
+              onChange={({ target: { value } }) => setFilterTaskByName(value.toLowerCase())}
+            />
+          </Label>
 
-        <Label htmlFor="filter-task-by-collaborator-name">
-          <span>Filter by collaborator name:</span>
-          <Input
-            id="filter-task-by-collaborator-name"
-            type="text"
-            onChange={({ target: { value } }) => setFilterTaskByCollaboratorName(value
-              .toLowerCase())}
-          />
-        </Label>
-      </FilterContainer>
-      )}
+          <Label htmlFor="filter-task-by-project-name">
+            <span>Filter by project name:</span>
+            <Input
+              autoComplete="off"
+              id="filter-task-by-project-name"
+              type="text"
+              onChange={({ target: { value } }) => setFilterTaskByProjectName(value.toLowerCase())}
+            />
+          </Label>
+
+          <Label htmlFor="filter-task-by-collaborator-name">
+            <span>Filter by collaborator name:</span>
+            <Input
+              autoComplete="off"
+              id="filter-task-by-collaborator-name"
+              type="text"
+              onChange={({ target: { value } }) => setFilterTaskByCollaboratorName(value
+                .toLowerCase())}
+            />
+          </Label>
+        </FilterContainer>
+      </FilterComponent>
+
       <CardsContainer>
         { tasks?.filter(({ name }) => name.toLowerCase().includes(filterTaskByName))
           .filter(({ project }) => project?.name.toLocaleLowerCase()
@@ -101,6 +114,7 @@ export default function Tasks(): JSX.Element {
             <CardTask key={task.id} props={{ task, showProjectName: true }} />
           ))}
       </CardsContainer>
+      <CopyrightImage author="@pierrejeanneret" />
     </TasksPage>
   );
 }

@@ -45,7 +45,6 @@ export const CardName = styled.h3`
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: justify;
-  border-bottom: 1px solid rgb(255, 252, 242,0.2);
 `;
 
 export const StyledLink = styled(Link)`
@@ -53,11 +52,16 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
   text-transform: uppercase;
   font-size: medium;
+  transition: transform 100ms ease-in-out;
 
-  &:hover, &:focus, &:active{
+  :hover, :focus{
     color: rgb(255, 252, 242);
     color: rgb(235, 94, 40);
-    text-decoration: underline;
+    transform: scale(1.05);
+  }
+  :active {
+    box-shadow: 0 0 0;
+    transform: scale(0.95);
   }
 `;
 
@@ -67,10 +71,11 @@ export const CardAssociations = styled.div`
   min-height: 125px;
   display: flex;
   flex-direction: column;
-  align-itrems: flex-start;
-  border-bottom: 1px solid rgb(255, 252, 242,0.2);
+  align-items: flex-start;
+  border-top: 1px solid rgb(255, 252, 242,0.05);
 
   h5 {
+    font-weight: 800;
     font-size: small;
   }
 
@@ -86,10 +91,11 @@ export const CardAssociations = styled.div`
 export const CardCollaborators = styled.div`
   height: 140px;
   padding-top: 1rem;
-  border-bottom: 1px solid rgb(255, 252, 242,0.2);
+  border-bottom: 1px solid rgb(255, 252, 242,0.05);
 
   h5 {
     font-size: small;
+    font-weight: 800;
   }
 
   p {

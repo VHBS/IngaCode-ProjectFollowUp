@@ -6,7 +6,7 @@ import useAuth from '../hooks/useAuth';
 import { Button } from '../styles/default';
 import { ButtonsContainer, NavBarComponent } from '../styles/NavBar';
 
-export default function Navbar() {
+export default function Navbar(): JSX.Element {
   const navigate = useNavigate();
   const { userData, setUserData } = useAuth() as AuthContextType;
 
@@ -18,6 +18,12 @@ export default function Navbar() {
         {userData?.user.userName}
       </h5>
       <ButtonsContainer>
+        <Button
+          type="button"
+          onClick={() => navigate('/')}
+        >
+          Home
+        </Button>
 
         <Button
           type="button"

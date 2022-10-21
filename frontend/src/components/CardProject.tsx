@@ -24,7 +24,7 @@ export default function CardProject({
       </StyledLink>
 
       <CardAssociations>
-        {tasks && tasks.length > 0 ? <h5>📝 Last tasks</h5> : <h6>📄 No tasks in this project</h6>}
+        {tasks && tasks.length > 0 ? <h5>📝 Last tasks</h5> : <h5>📄 No tasks in this project</h5>}
         {tasks?.sort((a, b) => new Date(b.createdAt).getTime()
         - new Date(a.createdAt).getTime()).slice(0, 4).map((task) => (
           <StyledLink to={`/tasks/${task.id}`} className="links" key={task.id}>
@@ -38,7 +38,7 @@ export default function CardProject({
           (collaborator) => collaborator.name,
         )).some((result) => result) ? (
           <h5>🙎‍♀️💻🙎 Collaborators</h5>) : (
-            <h6>💻 No collaborators on this project</h6>
+            <h5>💻 No collaborators on this project</h5>
           )}
         {tasks?.map((task) => task.collaborators?.map((collaborator) => (
           <p key={collaborator.id}>

@@ -8,13 +8,14 @@ import { handleFetchCreateProject } from '../utils/api';
 
 type PropType = {
     props: {
-      setShowModalNewProject: (showModalNewProject: boolean) => void
-      handleLoadProjects: () => Promise<void>
-    }
+      setShowModalNewItem: (showModalNewProject: boolean) => void
+      handleReload: () => Promise<void>
+      showModalNewItem: boolean
+    },
 }
 
 export default function NewProject({
-  props: { setShowModalNewProject, handleLoadProjects },
+  props: { setShowModalNewItem, handleReload, showModalNewItem },
 }: PropType): JSX.Element {
   const [projectName, setProjectName] = useState<string>('');
   const [showMessageError, setShowMessageError] = useState<boolean>(false);
@@ -28,7 +29,7 @@ export default function NewProject({
   const handleCreateNewProject = async () => {
     if (validateNewProjectFields() && userData) {
       await handleFetchCreateProject(userData.token, { name: projectName });
-      await handleLoadProjects();
+      await handleReload();
       setProjectName('');
       return setShowMessageError(false);
     }
@@ -36,17 +37,23 @@ export default function NewProject({
   };
 
   return (
-    <NewItemComponent>
+    <NewItemComponent showModal={showModalNewItem}>
       <NewItemContainer>
         <NewProjectTitle>
           New Project
         </NewProjectTitle>
-        { showMessageError && <p>Insert a project name! </p>}
+        { showMessageError && (
+        <p className="error-message">
+          Insert a project name!
+          <span>*</span>
+        </p>
+        )}
         <Label htmlFor="name">
           <span>
             📋 Project Name:
           </span>
           <Input
+            autoComplete="off"
             id="name"
             type="text"
             onChange={({ target: { value } }) => setProjectName(value)}
@@ -57,12 +64,11 @@ export default function NewProject({
           <Button type="button" onClick={() => handleCreateNewProject()}>
             Create
           </Button>
-          <Button type="button" onClick={() => setShowModalNewProject(false)}>
+          <Button type="button" onClick={() => setShowModalNewItem(false)}>
             Close
           </Button>
         </div>
       </NewItemContainer>
-
     </NewItemComponent>
   );
 }

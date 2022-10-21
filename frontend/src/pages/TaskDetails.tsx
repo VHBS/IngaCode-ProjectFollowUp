@@ -3,10 +3,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { AuthContextType } from '../@types/authContext';
 import ITask from '../@types/task';
+import CopyrightImage from '../components/CopyrightImage';
 import Navbar from '../components/Navbar';
 import NewCollaboratorTask from '../components/NewCollaboratorTask';
 import UpdateTask from '../components/UpdateTask';
 import useAuth from '../hooks/useAuth';
+import { StyledLink } from '../styles/CardStyles';
+import { Button } from '../styles/default';
+import { DetailTitlePage } from '../styles/ProjectDetails';
+import { DetailPage, DetailPageTaskDescription } from '../styles/TaskDetails';
 import { handleFetchDeleteTask, handleFetchGetOneTask } from '../utils/api';
 
 export default function TaskDetails(): JSX.Element {
@@ -37,70 +42,86 @@ export default function TaskDetails(): JSX.Element {
   }, []);
 
   return (
-    <div>
+    <DetailPage>
       <Navbar />
 
-      {showModalNewCollaboratorTask && (
-        <NewCollaboratorTask
-          props={{
-            setShowModalNewCollaboratorTask,
-            handleLoadTask,
-          }}
-        />
-      )}
-
-      {showModalUpdateTask && (
-        <UpdateTask
-          props={{
-            handleLoadTask,
-            setShowModalUpdateTask,
-          }}
-        />
-      )}
-
-      <button
-        type="button"
-        onClick={() => setShowModalNewCollaboratorTask(!showModalNewCollaboratorTask)}
-      >
-        Add collaborator
-      </button>
-
-      <button
-        type="button"
-        onClick={() => setShowModalUpdateTask(!showModalUpdateTask)}
-      >
-        Edit Task
-      </button>
-
-      <button
-        type="button"
-        onClick={() => handleDeleteTask()}
-      >
-        Delete Task
-      </button>
-
-      <div>
+      <DetailTitlePage>
         <h1>
           📝
           {task?.name}
         </h1>
-        <h4>
-          📋
-          {task?.project?.name}
-        </h4>
-        <p>{task?.description}</p>
-      </div>
-      <div>
-        {task?.collaborators?.some(
-          (collaborator) => collaborator.name,
-        ) ? <h3>🙎‍♀️💻🙎 Collaborators</h3> : <h3>💻No collaborators in this task</h3>}
+        <h3>
+          <StyledLink to={`/projects/${task?.project?.id}`} className="links">
+            📋
+            {task?.project?.name}
+          </StyledLink>
+        </h3>
 
-        {task?.collaborators?.map((collaborator) => (
-          <h5 key={collaborator.id}>
-            {collaborator.name}
-          </h5>
-        ))}
-      </div>
-    </div>
+        <div className="collaborators-project-container">
+          {task?.collaborators?.some(
+            (collaborator) => collaborator.name,
+          ) ? <h3>🙎‍♀️💻🙎 Collaborators</h3> : <h3>💻No collaborators in this task</h3>}
+
+          <div className="collaborators-project">
+            {task?.collaborators?.map((collaborator) => (
+              <h5 key={collaborator.id}>
+                {collaborator.name}
+              </h5>
+            ))}
+          </div>
+
+        </div>
+
+        <div className="title-container-buttons">
+          <Button
+            type="button"
+            onClick={() => setShowModalNewCollaboratorTask(!showModalNewCollaboratorTask)}
+          >
+            Add collaborator
+          </Button>
+
+          <Button
+            type="button"
+            onClick={() => setShowModalUpdateTask(!showModalUpdateTask)}
+          >
+            Edit Task
+          </Button>
+
+          <Button
+            className="delete-button"
+            type="button"
+            onClick={() => handleDeleteTask()}
+          >
+            Delete Task
+          </Button>
+        </div>
+      </DetailTitlePage>
+
+      <NewCollaboratorTask
+        props={{
+          setShowModalNewCollaboratorTask,
+          handleLoadTask,
+          showModal: showModalNewCollaboratorTask,
+        }}
+      />
+
+      <UpdateTask
+        props={{
+          handleLoadTask,
+          setShowModalUpdateTask,
+          showModal: showModalUpdateTask,
+        }}
+      />
+
+      <DetailPageTaskDescription>
+        <div className="description-content">
+          <h3>✏️ Description</h3>
+          <p>{task?.description}</p>
+        </div>
+      </DetailPageTaskDescription>
+
+      <CopyrightImage author="@pierrejeanneret" />
+
+    </DetailPage>
   );
 }

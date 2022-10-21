@@ -19,7 +19,7 @@ export default function CardTask({ props: { task, showProjectName } }: PropType)
   } = task;
 
   return (
-    <CardComponentTask>
+    <CardComponentTask className="card-component">
       <StyledLink to={`/tasks/${id}`}>
         <CardName>
           📝

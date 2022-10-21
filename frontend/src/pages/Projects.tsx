@@ -3,17 +3,18 @@ import React, { useEffect, useState } from 'react';
 import { AuthContextType } from '../@types/authContext';
 import IProject from '../@types/project';
 import CardProject from '../components/CardProject';
+import CopyrightImage from '../components/CopyrightImage';
 import Navbar from '../components/Navbar';
 import NewProject from '../components/NewProject';
 import useAuth from '../hooks/useAuth';
 import { Button, Input, Label } from '../styles/default';
 import {
-  FilterContainer, ProjectsPage, TitlePage, CardsContainer,
+  FilterContainer, PageComponent, TitlePage, CardsContainer, FilterComponent,
 } from '../styles/PageCards';
 import { handleFetchGetAllProjects } from '../utils/api';
 
 export default function Projects(): JSX.Element {
-  const [showModalNewProject, setShowModalNewProject] = useState<boolean>(false);
+  const [showModalNewItem, setShowModalNewItem] = useState<boolean>(false);
   const [showFilters, setShowFilters] = useState<boolean>(false);
   const [projects, setProjects] = useState<IProject[] | null>(null);
   const [filterProject, setFilterProject] = useState<string>('');
@@ -38,14 +39,14 @@ export default function Projects(): JSX.Element {
   }, []);
 
   return (
-    <ProjectsPage>
+    <PageComponent>
       <Navbar />
       <TitlePage>
         <h1>Projects</h1>
         <div className="title-container-buttons">
           <Button
             type="button"
-            onClick={() => setShowModalNewProject(!showModalNewProject)}
+            onClick={() => setShowModalNewItem(!showModalNewItem)}
           >
             New Project
           </Button>
@@ -59,39 +60,40 @@ export default function Projects(): JSX.Element {
         </div>
       </TitlePage>
 
-      { showModalNewProject
-      && (
-        <NewProject
-          props={{
-            setShowModalNewProject,
-            handleLoadProjects,
-          }}
-        />
-      )}
-      { showFilters && (
-      <FilterContainer>
-        <Label htmlFor="filter-project">
-          <span>
-            📋 Filter by project name:
-          </span>
-          <Input
-            id="filter-project"
-            type="text"
-            onChange={({ target: { value } }) => setFilterProject(value.toLowerCase())}
-          />
-        </Label>
-        <Label htmlFor="filter-task-by-name">
-          <span>
-            📝 Filter by project name:
-          </span>
-          <Input
-            id="filter-task-by-name"
-            type="text"
-            onChange={({ target: { value } }) => setFilterTaskByName(value.toLowerCase())}
-          />
-        </Label>
-      </FilterContainer>
-      )}
+      <NewProject
+        props={{
+          setShowModalNewItem,
+          handleReload: handleLoadProjects,
+          showModalNewItem,
+        }}
+      />
+      <FilterComponent showFilters={showFilters}>
+
+        <FilterContainer>
+          <Label htmlFor="filter-project">
+            <span>
+              🔎📋 Filter by project name:
+            </span>
+            <Input
+              id="filter-project"
+              autoComplete="off"
+              type="text"
+              onChange={({ target: { value } }) => setFilterProject(value.toLowerCase())}
+            />
+          </Label>
+          <Label htmlFor="filter-task-by-name">
+            <span>
+              🔎📝 Filter by task name:
+            </span>
+            <Input
+              id="filter-task-by-name"
+              autoComplete="off"
+              type="text"
+              onChange={({ target: { value } }) => setFilterTaskByName(value.toLowerCase())}
+            />
+          </Label>
+        </FilterContainer>
+      </FilterComponent>
 
       {/* <br />
       <label htmlFor="filter-task-by-collaborator-name">
@@ -125,6 +127,7 @@ export default function Projects(): JSX.Element {
           ))}
       </CardsContainer>
 
-    </ProjectsPage>
+      <CopyrightImage author="@nineteen" />
+    </PageComponent>
   );
 }

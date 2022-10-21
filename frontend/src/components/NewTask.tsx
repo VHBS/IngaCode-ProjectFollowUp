@@ -11,15 +11,17 @@ import { handleFetchCreateTask, handleFetchGetAllProjects } from '../utils/api';
 
 type PropType = {
   props: {
-    setShowModalNewTask: (showModalNewProject: boolean) => void
-    handleLoadTasks: () => Promise<void>
+    setShowModalNewItem: (showModalNewProject: boolean) => void
+    handleReload: () => Promise<void>
+    showModalNewItem: boolean
   }
 }
 
 export default function NewTask({
   props: {
-    handleLoadTasks,
-    setShowModalNewTask,
+    handleReload,
+    setShowModalNewItem,
+    showModalNewItem,
   },
 }: PropType): JSX.Element {
   const [projects, setProjects] = useState<IProject[] | null>(null);
@@ -62,8 +64,8 @@ export default function NewTask({
         projectId: newTaskProjectId as string,
       };
       await handleFetchCreateTask(userData?.token as string, taskToCreate);
-      await handleLoadTasks();
-      setShowModalNewTask(false);
+      await handleReload();
+      setShowModalNewItem(false);
     }
   };
 
@@ -72,12 +74,19 @@ export default function NewTask({
   }, []);
 
   return (
-    <NewItemComponent>
+    <NewItemComponent showModal={showModalNewItem}>
       <NewItemContainer>
         <NewProjectTitle>
-          NewTask
+          New Task
         </NewProjectTitle>
-        {showMessageError && <p>{messageError}</p>}
+
+        {showMessageError && (
+        <p className="error-message">
+          {messageError}
+          <span>*</span>
+        </p>
+        )}
+
         <Label htmlFor="select-project-name">
           <span>Project Name:</span>
           <Select
@@ -98,6 +107,7 @@ export default function NewTask({
         <Label htmlFor="task-name">
           <span>Task Name:</span>
           <Input
+            autoComplete="off"
             id="task-name"
             type="text"
             onChange={({ target: { value } }) => setNewTaskName(value)}
@@ -108,13 +118,14 @@ export default function NewTask({
         <Label htmlFor="task-description">
           <span>Task Description:</span>
           <Textarea
+            autoComplete="off"
             id="task-description"
             onChange={({ target: { value } }) => setNewTaskDescription(value)}
             value={newTaskDescription}
           />
         </Label>
-        <div className="title-container-buttons">
 
+        <div className="title-container-buttons">
           <Button
             type="button"
             onClick={handleCreateTask}
@@ -123,13 +134,12 @@ export default function NewTask({
           </Button>
           <Button
             type="button"
-            onClick={() => setShowModalNewTask(false)}
+            onClick={() => setShowModalNewItem(false)}
           >
             Close
           </Button>
         </div>
       </NewItemContainer>
-
     </NewItemComponent>
   );
 }
