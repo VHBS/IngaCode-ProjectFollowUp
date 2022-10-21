@@ -13,6 +13,7 @@ export const StyledCopyrightImage = styled.div`
     position: fixed;
     bottom: 1rem;
     left: 1rem;
+    z-index: 0;
     
   a {
     width: 100%;
