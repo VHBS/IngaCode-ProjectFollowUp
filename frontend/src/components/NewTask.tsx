@@ -79,12 +79,14 @@ export default function NewTask({
         <NewProjectTitle>
           New Task
         </NewProjectTitle>
+
         {showMessageError && (
         <p className="error-message">
           {messageError}
           <span>*</span>
         </p>
         )}
+
         <Label htmlFor="select-project-name">
           <span>Project Name:</span>
           <Select
@@ -122,8 +124,8 @@ export default function NewTask({
             value={newTaskDescription}
           />
         </Label>
-        <div className="title-container-buttons">
 
+        <div className="title-container-buttons">
           <Button
             type="button"
             onClick={handleCreateTask}
@@ -138,7 +140,6 @@ export default function NewTask({
           </Button>
         </div>
       </NewItemContainer>
-
     </NewItemComponent>
   );
 }

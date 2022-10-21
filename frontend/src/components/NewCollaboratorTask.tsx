@@ -4,18 +4,24 @@ import { useParams } from 'react-router-dom';
 import { AuthContextType } from '../@types/authContext';
 import ICollaborator from '../@types/collaborator';
 import useAuth from '../hooks/useAuth';
+import { Button, Label, Select } from '../styles/default';
+import { NewItemComponent, NewItemContainer, NewProjectTitle } from '../styles/NewRegistry';
 import { handleFetchCreateCollaboratorTask, handleFetchGetAllCollaborators } from '../utils/api';
 
 type PropType = {
   props: {
     setShowModalNewCollaboratorTask: (showModal: boolean) => void
     handleLoadTask: () => Promise<void>
+    showModal: boolean
+
   }
 }
 
 export default function NewCollaboratorTask({
   props: {
-    setShowModalNewCollaboratorTask, handleLoadTask,
+    setShowModalNewCollaboratorTask,
+    handleLoadTask,
+    showModal,
   },
 }: PropType): JSX.Element {
   const [collaborators, setCollaborators] = useState<ICollaborator[] | null>(null);
@@ -46,33 +52,39 @@ export default function NewCollaboratorTask({
   }, []);
 
   return (
-    <div>
-      <h1>Add collaborator to task</h1>
+    <NewItemComponent showModal={showModal}>
+      <NewItemContainer>
+        <NewProjectTitle>
+          Add collaborator to task
+        </NewProjectTitle>
 
-      <label htmlFor="select-project-name">
-        <span>Collaborator Name:</span>
-        <select
-          id="select-project-name"
-          onChange={({ target: { value } }) => setNewCollaboratorTaskId(value)}
-        >
-          { collaborators?.map((collaborator) => (
-            <option
-              key={collaborator.id}
-              value={collaborator.id}
-            >
-              {collaborator.name}
-            </option>
-          ))}
-        </select>
-      </label>
+        <Label htmlFor="select-project-name">
+          <span>Collaborator Name:</span>
+          <Select
+            id="select-project-name"
+            onChange={({ target: { value } }) => setNewCollaboratorTaskId(value)}
+          >
+            { collaborators?.map((collaborator) => (
+              <option
+                key={collaborator.id}
+                value={collaborator.id}
+              >
+                {collaborator.name}
+              </option>
+            ))}
+          </Select>
+        </Label>
 
-      <button type="button" onClick={handleCreateCollaboratorTask}>
-        Create Collaborator Task
-      </button>
+        <div className="title-container-buttons">
+          <Button type="button" onClick={handleCreateCollaboratorTask}>
+            Button Collaborator Task
+          </Button>
 
-      <button type="button" onClick={() => setShowModalNewCollaboratorTask(false)}>
-        Close
-      </button>
-    </div>
+          <Button type="button" onClick={() => setShowModalNewCollaboratorTask(false)}>
+            Close
+          </Button>
+        </div>
+      </NewItemContainer>
+    </NewItemComponent>
   );
 }

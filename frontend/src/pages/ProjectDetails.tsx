@@ -102,7 +102,7 @@ export default function ProjectDetails(): JSX.Element {
           <CardTask key={task.id} props={{ task, showProjectName: false }} />
         ))}
       </CardsContainer>
-      <CopyrightImage author="@pierrejeanneret" />
+      <CopyrightImage author="@nineteen" />
     </DetailPage>
   );
 }
